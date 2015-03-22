@@ -1,0 +1,96 @@
+.button {
+    display: inline-block;
+    padding: 8px 0px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+#login-screen, #test-status-error {
+    display: none;
+    position: fixed;
+    height: 260px;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    margin-top: -130px;
+    margin-left: -250px;
+}
+#login-screen h1, #test-status-error h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 32px;
+}
+#login-screen form { text-align: center; padding-top: 40px; }
+#login-screen input[type=text], input[type=password] {
+    color: #aaa;
+    box-shadow: 0px 0px 3px #929292 inset;
+    padding: 10px 10px;
+    font-size: 14px;
+    margin: 5px;
+    width: 218px;
+    border-radius: 2px; 
+}
+#login-go {
+    margin: 40px 5px 0px 5px;
+    width: 80px; 
+}
+
+#instructions-screen {	
+    display: none;
+    position: fixed;
+    height: 360px;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    margin-top: -180px;
+    margin-left: -250px;
+    text-align: center;
+}
+#instructions-screen h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 100%;
+}
+ul#instructions { margin: 45px 0px; text-align: left; }
+#instructions li { font-size: 14px; padding: 4px 0px; list-style-type: none; }
+#start-test { width: 120px; }
+
+#submit-check {
+    height: 100px;
+    width: 290px;
+    margin-top: -70px;
+    margin-left: -165px;
+    padding: 20px;
+    text-align: center;
+}
+#submit-check p { margin: 0px 0px 30px; padding: 0px; text-align: left; }
+#submit-yes { margin-right: 10px; width: 80px; }
+#submit-no { width: 80px; }
+
+/*overwrite test_common.css*/
+#result-screen {
+    display: none;
+    position: fixed;
+    height: 200px;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -250px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.bug-report-button {
+    display: none;
+}
+#test-selection {
+    width: 150px;
+    height: 30px;
+    margin-left: 10px;
+}

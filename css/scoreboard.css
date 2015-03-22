@@ -1,0 +1,156 @@
+#scoreboard-screen {
+    display: none;
+    width: 600px;
+    margin: 0px auto;
+}
+
+#scoreboard-test-selection-wrapper {
+    width: 100%;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+}
+
+/*for control panel only*/
+#scoreboard-screen.control-panel {
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#scoreboard-screen h1 {
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+}
+
+#scoreboard {
+    padding-top: 10px;
+    width: 50%;
+    overflow-y: scroll;
+    position: absolute;
+    bottom: 0px;
+    top: 40px;
+    z-index: 10;
+}
+
+#bell-curve-viz {
+    margin: auto;
+    height: 280px;
+    text-align: center;
+}
+
+#bell-curve-viz svg {
+    margin-left: 0px;
+    position: relative;
+    left: auto;
+}
+
+#bell-curve-viz .axis path,
+#bell-curve-viz .axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+#bell-curve-viz .line {
+  fill: none;
+  stroke-width: 3px;
+}
+
+#bell-curve-viz .axis text {
+    font-size: 11px;
+}
+
+#question-graph-viz {
+    margin: auto;
+    height: 280px;
+    text-align: center;
+}
+
+#question-graph-viz rect:hover {
+    cursor: pointer;
+}
+
+#question-detail-information {
+    margin: auto;
+    width: 300px;
+    display: none;
+}
+
+#question-detail-information h1 {
+    text-align: left;
+}
+
+#question-graph-viz svg {
+    z-index: 9;
+    margin-left: 0px;
+    position: relative;
+    left: auto;
+    height: 270px;
+}
+
+#question-graph-viz .axis path,
+#question-graph-viz .axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+#question-graph-viz .axis text {
+    font-size: 11px;
+}
+
+#question-graph-legend {
+    margin-left: 20px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+#question-graph {
+    width: 50%;
+    padding-top: 10px;
+    position: absolute;
+    bottom: 0px;
+    top: 70px;
+    -webkit-transition: width 0.6s; /* For Safari 3.1 to 6.0 */
+    transition: width 0.6s;
+}
+
+.legend-colour {
+    height: 10px;
+    width: 10px;
+    display: inline-block;
+}
+
+#question-wrong-answers ul {
+    list-style-type: none;
+}
+
+#question-wrong-answers li {
+    margin-left: 20px;
+}
+
+#scoreboard table, #statistics {
+    width: 600px;
+    margin: auto;
+    margin-top: 10px;
+}
+
+table {
+    display: none;
+    width: 600px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    text-align: left;
+    padding: 5px 8px;
+}
+
+#statistics span {
+    font-weight: bold;
+}

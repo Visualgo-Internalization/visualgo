@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+
+<meta description="VisuAlgo was conceptualised in 2011 by Dr Steven Halim as a tool to help his students better understand data structures and algorithms, by allowing them to learn the basics on their own and at their own pace. Together with his students from the National University of Singapore, a series of visualisations were developed and consolidated, from simple sorting algorithms to complex graph data structures. Though specifically designed for the use of NUS students taking various data structure and algorithm classes (CS1020, CS2010, CS2020, and CS3233), as advocators of online learning, we hope that curious minds around the world will find these visualisations useful as well." />
+<meta keyword="VisuAlgo Data Structure Algorithm Visualization Animation Online Learning Tutorial Lecture"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta property="og:image" content="img/hashtable.jpg"/>
+<title>VisuAlgo - visualising data structures and algorithms through animation</title>
+<link rel="icon" type="image/png" href="img/favicon.png" />
+
+<!--css-->
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/home.css">
+
+<!--js-->
+<script src="js/external/jquery-1.10.2.js"></script>
+<script src="js/test/test_mode_constant.js"></script>
+<script src="js/language.js"></script> <!--override the default English text in this index.html if the browser language is different (or if user change the language)-->
+<script src="js/home.js"></script>
+<script src="js/common.js"></script>
+
+<!--fonts-->
+<link href="fonts/silkscreen/stylesheet.css" rel='stylesheet' type='text/css'>
+<!--<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>-->
+<link href='css/local.css' rel='stylesheet' type='text/css'>
+
+<!--languages-->
+<link rel=alternate hreflang="en" href="http://en.visualgo.net" />
+<link rel=alternate hreflang="zh" href="http://zh.visualgo.net" />
+<link rel=alternate hreflang="ru" href="http://ru.visualgo.net" />
+<link rel=alternate hreflang="id" href="http://id.visualgo.net" />
+<link rel=alternate hreflang="bn" href="http://bn.visualgo.net" />
+<link rel=alternate hreflang="ja" href="http://ja.visualgo.net" />
+<link rel=alternate hreflang="de" href="http://de.visualgo.net" />
+<link rel=alternate hreflang="ko" href="http://ko.visualgo.net" />
+<link rel=alternate hreflang="vi" href="http://vi.visualgo.net" />
+<link rel=alternate hreflang="th" href="http://th.visualgo.net" />
+<link rel=alternate hreflang="nl" href="http://nl.visualgo.net" />
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1566631-4', 'auto');
+  ga('send', 'pageview');
+</script>
+<meta name="google-translate-customization" content="3b9dcf3ccf6c2765-1940bc0ee7f019de-g84ae4aa9833c66dd-2c"></meta>
+</head>
+
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=512208288834370&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div id="top-bar">
+  <a id="home" href="http://www.comp.nus.edu.sg/~stevenha" target="_top"><span class="colour">7</span></a>&nbsp;&nbsp;&nbsp;
+  <a id="home" href="http://visualgo.net" target="_top">Visu<span class="colour">Algo</span></a>&nbsp;&nbsp;&nbsp;
+  <a class="right-links" id="training-link" href="http://visualgo.net/training.html" target="_top">Start training!</a>
+  <a class="right-links" id="test-link" href="http://visualgo.net/test.html" target="_top">Join ongoing test</a>
+  <a class="right-links" id="ans-link" href="http://visualgo.net/answerkey.html" target="_top">Answers to last test</a>
+</div>
+
+<table width="100%">
+<tr>
+
+<th width="2%">
+</th>
+
+<!--List of 'Do you know' statements:
+#1
+
+Try the graph drawing feature in these 5 visualizations:
+<a href="http://visualgo.net/dfsbfs.html" target="_top">DFS/BFS</a>, 
+<a href="http://visualgo.net/mst.html" target="_top">MST</a>, 
+<a href="http://visualgo.net/sssp.html" target="_top">SSSP</a>, 
+<a href="http://visualgo.net/maxflow.html" target="_top">Max Flow</a>, and 
+<a href="http://visualgo.net/matching.html" target="_top">Matching</a>.
+After login, user can submit his/her drawing to our server to enrich the 
+'random graph' feature and also the question bank for graph questions. 
+When user click `random graph' feature, he/she can also upvote/downvote a 
+graph drawn by other user so that only the good ones remain in the system 
+over time.
+
+#2
+
+<p>If you need to compare two related algorithms, e.g. Kruskal's versus Prim's on the same connected weighted graph,
+you can open two VisuAlgo pages in two browser windows and juxtapose them.<br>
+<a href="kruskalprim.png" target="_blank"><img src="kruskalprim.png" width="100%"/></a>
+</p>
+
+Another possible comparison: Binary Max Heap O(n) and O(n log n) insertion, etc.
+
+#3
+
+
+<p>Do You Know?<br>
+<br>
+
+<p>You can visualize the recursion tree (or recursion DAG, if there are overlapping subproblems and Dynamic Programming is applicable) of <b>ANY</b> valid <a href="http://visualgo.net/recursion.html" target="_top"><u>recursive function</u></a> 
+that can be written in JavaScript.<br><br>
+<a href="recursion_treedag.png" target="_blank"><img src="recursion_treedag_small.png" width="100%"/></a>
+</p>
+
+-->
+
+<th width="20%" align="left">
+<p>New Features:
+</p>
+<ol>
+  <li><a href="http://visualgo.net/hashtable.html" target="_top">Hash Table visualization</a></li>
+  <li><a href="http://visualgo.net/training.html" target="_top">New training modules+UX improvements</a></li>
+  Linked List, Recursion, Sorting, Hash Table
+</ol>
+</th>
+
+<th width="56%">
+<h1>
+<table align="center">
+  <tr>
+    <td><a href="http://en.visualgo.net" target="_top"><span title="English (default)"><img id="en_flag" src="http://www.comp.nus.edu.sg/~stevenha/images/GBP.png" height="15px"/></span></a></td>
+    <td><a href="http://zh.visualgo.net" target="_top"><span title="Chinese"><img id="zh_flag" src="http://www.comp.nus.edu.sg/~stevenha/images/CHN.png" height="15px"/></span></a></td>
+    <td><a href="http://ru.visualgo.net" target="_top"><span title="Russian"><img id="ru_flag" src="http://www.comp.nus.edu.sg/~stevenha/images/RUS.png" height="15px"/></span></a></td>
+    <td><a href="http://id.visualgo.net" target="_top"><span title="Indonesian"><img id="id_flag" src="http://www.comp.nus.edu.sg/~stevenha/images/IDN.png" height="15px"/></span></a></td>
+    <td><a href="http://bn.visualgo.net" target="_top"><span title="Bengali"><img id="bn_flag" src="http://www.comp.nus.edu.sg/~stevenha/images/BGD.png" height="15px"/></span></a></td>
+    <td><a href="http://ja.visualgo.net" target="_top"><span title="Japanese"><img id="ja_flag" src="http://www.comp.nus.edu.sg/~stevenha/images/JPN.png" height="15px"/></span></a></td>
+    <td><a href="http://de.visualgo.net" target="_top"><span title="German"><img id="de_flag" src="http://www.comp.nus.edu.sg/~stevenha/images/DEU.png" height="15px"/></span></a></td>
+    <td><a href="http://ko.visualgo.net" target="_top"><span title="Korean"><img id="ko_flag" src="http://www.comp.nus.edu.sg/~stevenha/images/KOR.png" height="15px"/></span></a></td>
+    <td><a href="http://vi.visualgo.net" target="_top"><span title="Vietnamese"><img id="vi_flag" src="http://www.comp.nus.edu.sg/~stevenha/images/VNM.png" height="15px"/></span></a></td>
+    <td><a href="http://th.visualgo.net" target="_top"><span title="Thai"><img id="th_flag" src="http://www.comp.nus.edu.sg/~stevenha/images/THA.png" height="15px"/></span></a></td>
+    <td><a href="http://nl.visualgo.net" target="_top"><span title="Dutch"><img id="nl_flag" src="http://www.comp.nus.edu.sg/~stevenha/images/NLD.png" height="15px"/></span></a></td>
+  </tr>
+</table>
+
+<select id="Language">
+  <option value="en"">en</option>
+  <option value="zh">zh</option>
+  <option value="ru">ru</option>
+  <option value="id">id</option>
+  <option value="bn">bn</option>
+  <option value="ja">ja</option>
+  <option value="de">de</option>
+  <option value="ko">ko</option>
+  <option value="vi">vi</option>
+  <option value="th">th</option>
+  <option value="nl">nl</option>
+</select><span style="font-size:25%">.</span>Visu<span class="colour">Algo</span><span style="font-size:25%">.net</span></h1>
+<h2 id="subtitle">visualising data structures and algorithms through animation</h2>
+
+<!--<div id="google_translate_element"></div><script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', multilanguagePage: true, gaTrack: true, gaId: 
+'UA-1566631-4'}, 'google_translate_element');
+}
+</script><script type="text/javascript" 
+src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+-->
+
+<form id="searchbar">
+  <input id="search" type="text" autocomplete="off" value="Search..."><div id="show-filters" title="show/hide filters"><img src="img/arrow_white.png"/></div>
+</form>
+
+<div id="active-tags"></div>
+<div id="emptySearchMsg">No results were found.</div>
+<div id="filters-and-lines">
+    <div class="line" style="margin-top: 20px;"></div>
+    <div id="filters"></div>
+    <div class="line"></div>
+</div>
+</th>
+
+<th width="22%" align="right">
+<!--All these data structures and algorithms are discussed in "Competitive Programming" textbook.-->
+<a href="https://sites.google.com/site/stevenhalim/" target="_blank"> <img src="http://www.comp.nus.edu.sg/~stevenha/images/cp3.png" 
+height="130px"/>
+</a><br>
+<a href="http://www.lulu.com/commerce/index.php?fBuyContent=13872395" target="_blank"><img alt="Support independent 
+publishing: Buy 
+this book on Lulu." border="0" src="http://static.lulu.com/images/services/buy_now_buttons/us/blue.gif?20130514083221"></a>
+</th>
+</tr>
+</table>
+
+<div id="main">
+<ul class="list">
+    <li class="viz" id="sorting">
+        <div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/sorting.html" target="_top">
+                <img src="img/sorting.gif">
+                <img class="static" src="img/sorting.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="sortingtext" href="http://visualgo.net/sorting.html" target="_top">Sorting</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+    <li class="viz" id="bitmask">
+    	<div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/bitmask.html" target="_top">
+                <img src="img/bitmask.gif">
+                <img class="static" src="img/bitmask.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="bitmasktext" href="http://visualgo.net/bitmask.html" target="_top">Bitmask</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+    <li class="viz" id="linked">
+        <div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/list.html" target="_top">
+                <img src="img/list.gif">
+                <img class="static" src="img/list.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="linkedtext" href="http://visualgo.net/list.html" target="_top">Linked List, Stack, Queue</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+    <li class="viz" id="hashtable">
+        <div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/hashtable.html" target="_top">
+                <img src="img/hashtable.gif">
+                <img class="static" src="img/hashtable.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="linkedtext" href="http://visualgo.net/hashtable.html" target="_top">Hash Table</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+    <li class="viz" id="heap">
+    	<div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/heap.html" target="_top">
+            	<img src="img/heap.gif">
+                <img class="static" src="img/heap.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="heaptext" href="http://visualgo.net/heap.html" target="_top">Binary Heap</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+    <li class="viz" id="bst">
+    	<div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/bst.html" target="_top">
+            	<img src="img/bst.gif">
+                <img class="static" src="img/bst.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="bsttext" href="http://visualgo.net/bst.html" target="_top">Binary Search Tree, AVL Tree</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+    <li class="viz" id="graphs">
+        <div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/graphds.html" target="_top">
+                <img src="img/graphs.gif">
+                <img class="static" src="img/graphs.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="graphstext" href="http://visualgo.net/graphds.html" target="_top">Graph Data Structures</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+    <li class="viz" id="union">
+    	<div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/ufds.html" target="_top">
+            	<img src="img/union.gif">
+                <img class="static" src="img/union.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="uniontext" href="http://visualgo.net/ufds.html" target="_top">Union-Find Disjoint Sets</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+    <li class="viz" id="segmenttree">
+        <div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/segmenttree.html" target="_top">
+                <img src="img/segmenttree.gif">
+                <img class="static" src="img/segmenttree.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="segmenttreetext" href="http://visualgo.net/segmenttree.html" target="_top">Segment Tree</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+    <li class="viz" id="bit">
+        <div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/bit.html" target="_top">
+                <img src="img/bit.gif">
+                <img class="static" src="img/bit.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="bittext" href="http://visualgo.net/bit.html" target="_top">Binary Indexed Tree</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+
+    <li class="viz" id="recursion">
+        <div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/recursion.html" target="_top">
+                <img src="img/recursion.gif">
+                <img class="static" src="img/recursion.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="recursiontext" href="http://visualgo.net/recursion.html" target="_top">Generic Recursion Tree/DAG</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+
+    <li class="viz" id="traversal">
+        <div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/dfsbfs.html" target="_top">
+                <img src="img/dfsbfs.gif">
+                <img class="static" src="img/dfsbfs.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="traversaltext" href="http://visualgo.net/dfsbfs.html" target="_top">Graph Traversal</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+    <li class="viz" id="mst">
+    	<div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/mst.html" target="_top">
+                <img src="img/mst.gif">
+                <img class="static" src="img/mst.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="msttext" href="http://visualgo.net/mst.html" target="_top">Minimum Spanning Tree</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+    <li class="viz" id="sssp">
+    	<div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/sssp.html" target="_top">
+                <img src="img/sssp.gif">
+                <img class="static" src="img/sssp.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="sssptext" href="http://visualgo.net/sssp.html" target="_top">Single-Source Shortest Paths</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+    <li class="viz" id="maxflow">
+        <div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/maxflow.html" target="_top">
+                <img src="img/maxflow.gif">
+                <img class="static" src="img/maxflow.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="maxflowtext" href="http://visualgo.net/maxflow.html" target="_top">Network Flow</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+    <li class="viz" id="matching">
+        <div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/matching.html" target="_top">
+                <img src="img/matching.gif">
+                <img class="static" src="img/matching.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="matchingtext" href="http://visualgo.net/matching.html" target="_top">Graph Matching</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+
+    <li class="viz" id="suffixtree">
+    	<div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/suffixtree.html" target="_top">
+                <img src="img/suffixtree.gif">
+                <img class="static" src="img/suffixtree.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="suffixtreetext" href="http://visualgo.net/suffixtree.html" target="_top">Suffix Tree</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+    <li class="viz" id="suffixarray">
+        <div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/suffixarray.html" target="_top">
+                <img src="img/suffixarray.gif">
+                <img class="static" src="img/suffixarray.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="suffixarraytext" href="http://visualgo.net/suffixarray.html" target="_top">Suffix Array</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+
+    <li class="viz" id="geometry">
+        <div class="li-wrapper">
+            <a class="thumbnail" href="http://visualgo.net/geometry.html" target="_top">
+                <img src="img/geometry.gif">
+                <img class="static" src="img/geometry.jpg">
+            </a>
+            <div class="info">
+                <h3><a id="geometrytext" href="http://visualgo.net/geometry.html" target="_top">(Computational) Geometry</a></h3>
+                <div class="indv-viz-filters"></div>
+            </div>
+        </div>
+    </li>
+</ul>
+</div>
+
+<div align="center">
+<div class="fb-like" data-href="http://visualgo.net" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<div><br><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.comp.nus.edu.sg/~stevenha/visualization/" data-via="Steven7Halim">Tweet</a>
+<script>!function(d,s,id){var 
+js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 
+'twitter-wjs');</script>
+</div>
+</div>
+
+<div id="aboutvisualgo">
+<hr>
+<h1 id="abouttext">About VisuAlgo</h1>
+<br>
+
+<div id="motivation">
+<h2>Motivation</h2>
+<p style="margin-left:5em; margin-right:5em;" align="left">VisuAlgo was conceptualised in 2011 by Dr Steven Halim as a 
+tool to help his students better understand data structures and algorithms, by allowing them to learn the basics on their own and at 
+their own pace. VisuAlgo is like a 24/7 copy of himself. Together with some of his students from the National 
+University of Singapore (see the "Team"), a series of visualisations were developed and consolidated, from simple sorting 
+algorithms to complex graph data structures and algorithms, and also string+geometry algorithms.<br>
+</p>
+<br>
+<p style="margin-left:5em; margin-right:5em" align="left">VisuAlgo contains <b>many advanced algorithms</b> that are 
+discussed in Dr Steven Halim's book and beyond (Note: This <a 
+href="http://sites.google.com/site/stevenhalim/" target="_blank">'Competitive 
+Programming 3'</a> book is co-authored with his brother Dr Felix Halim). At this point of time, some of these advanced algorithms visualization/animation can <b>only</b> be found in 
+VisuAlgo. For example, in <a href="http://visualgo.net/dfsbfs.html" target="_top">Graph Traversal 
+visualization</a>, we do 
+not just discuss the standard Depth-First Search (DFS) and Breadth-First Search (BFS) algorithms, but also their variants, e.g. 
+the modifications of DFS for finding Articulation Points (Cut Vertex) and Bridges, Tarjan's and Kosaraju's DFS-like algorithms for 
+finding Strongly Connected Components (SCCs) of a directed graph, and we also have feature to visualize the implication graph of a 
+small 2-SAT(isfiablity) instance and check if the instance is satisfiable.
+</p>
+<br>
+<p style="margin-left:5em; margin-right:5em" align="left">Though specifically designed for NUS students 
+taking various data structure and algorithm classes (e.g. <a 
+href="http://nusmods.com/modules/CS1010" target="_blank">CS1010</a>, <a 
+href="http://nusmods.com/modules/CS1020" target="_blank">CS1020</a>, <a 
+href="http://nusmods.com/modules/CS2010" target="_blank">CS2010</a>, <a 
+href="http://nusmods.com/modules/CS2020" target="_blank">CS2020</a>, <a 
+href="http://nusmods.com/modules/CS3230" target="_blank">CS3230</a>, and <a 
+href="http://nusmods.com/modules/CS3233" target="_blank">CS3233</a>), as 
+advocators of online learning, we hope that curious minds around the world 
+will find these visualisations useful as well.
+<br>
+<br>
+</p>
+</div>
+
+<div id="developments">
+<h2>Ongoing developments</h2>
+
+<p style="margin-left:5em; margin-right:5em;" align="left">VisuAlgo is an ongoing project and more complex 
+visualisations are still being developed. The following visualizations are next in line to be developed by our team: 
+Hash Table (using several hashing techniques), Jack Edmonds' Graph Matching algorithm, Chu-Liu Edmonds' algorithm for
+Directed MST, etc.<br>
+</p>
+<br>
+<p style="margin-left:5em; margin-right:5em;" align="left">However, the most exciting development is an automated 
+question generator and verifier (the online quiz system) that allows student to test their knowledge of basic data 
+structures and algorithms. The questions are <b>randomly generated</b> via some rules and students' 
+answers are <b>instantly and automatically graded</b> upon submission to our grading server. This online quiz system, 
+when it matures, should technically eliminate <b>manual</b> basic data structure and algorithm questions from typical 
+Computer Science examinations in many Universities. By setting a small (but non-zero) weightage on passing the online 
+quiz, a CS instructor can (significantly? -- to be proven after Dr Steven Halim finished this experiment with his 
+algorithm class this semester) increase his/her students mastery on these basic questions as the students have 
+virtually infinite number of training questions that can be verified instantly before they take the online quiz. To try this exciting online quiz feature, 
+click the "Start training!" button on the top right corner of this page.
+<br>
+<br>
+</p>
+</div>
+
+<div id="bug">
+<h2>Bug Reports or Request for New Features</h2>
+<p style="margin-left:5em; margin-right:5em;" align="left">VisuAlgo is not a finished project. Dr Steven Halim and 
+his team are still actively improving VisuAlgo. If you spot a bug in any of our visualization page/online quiz tool or 
+if you want to request for new features, please contact Dr "Steven Halim". His contact is the concatenation of his name and add gmail dot com.<br>
+<br>
+<br>
+</p>
+</div>
+
+<div id="publications">
+<h2>Publications</h2>
+<p style="margin-left:5em; margin-right:5em;" align="left">This work has been presented briefly at the CLI Workshop at 
+the ACM ICPC World Finals 2012 (Poland, Warsaw) and at the IOI Conference at IOI 2012 (Sirmione-Montichiari, Italy). 
+You can click <a href="http://www.ioinformatics.org/oi/shtm/INFOL099.shtml" target="_blank">this link</a> to read 
+our 2012 paper about this system (it was not yet called VisuAlgo back in 2012).<br><br></p>
+</div>
+
+<h2>Frequently Asked Questions (Only in English)</h2>
+
+<p style="margin-left:5em; margin-right:5em;" align="left">The list below contains the answers to frequently asked 
+questions since this site went public in early August 2014:<br>
+</p>
+
+<ol style="margin-left:5em; margin-right:5em;" align="left">
+  <li align="left">Q: VisuAlgo does not look nice on small screen 
+(e.g. smartphones). Will your team do something about 
+this?<br>
+      A: No, we have decided to give up our past pursuit to optimize VisuAlgo for small screen due to the need to 
+cater many complex algorithm visualizations that require lots of pixels. The minimum resolution for respectable user 
+experience is <a 
+href="http://quirktools.com/screenfly/#u=http%3A//www.comp.nus.edu.sg/%7Estevenha/visualization/&w=1024&h=768&a=1&s=1" 
+target="_blank">1024x768</a>. We admit that it will be too painful to watch VisuAlgo animations on today's 
+smartphones (it is OK on tablets). Note that you also cannot do the click-and-drag gesture for graph drawing on 
+smartphones and tablets.<br>
+
+  <li>Q: Are you going to make VisuAlgo an open-source project so that other developers can extend it, edit 
+certain visualizations to their liking, edit the language of the visualizations, etc?<br>
+      A: Probably... We are still undecided about this. However, we have started the localization sub-project of the index.html of this site. If you are interested to translate various Computer Science terminologies to your native language, 
+please contact Steven. We are particularly interested with Spanish, Hindustani, Arabic, and French speakers :). We have also 
+written public notes about VisuAlgo in various languages: <a href="http://www.weibo.com/p/230418436e9ee80102v4rk" 
+target="_blank"><u>Chinese</u></a>, <a 
+href="https://www.facebook.com/notes/steven-halim/httpidvisualgonet-visualisasi-struktur-data-dan-algoritma-dengan-animasi/10153236934439689" 
+target="_blank"><u>Indonesian</u></a>, <a href="http://blog.naver.com/visualgo_nus" target="_blank"><u>Korean</u></a>,
+<a href="https://www.facebook.com/groups/163215593699283/permalink/824003417620494/" target="_blank"><u>Vietnamese</u></a>,
+<a href="http://pantip.com/topic/32736343" target="_blank"><u>Thai (first link)</u></a>, and
+<a href="https://www.blognone.com/node/61764" target="_blank"><u>Thai (second link)</u></a>.<br>
+
+  <li>Q: As VisuAlgo (minus the online quiz system) is basically a collection of client-side HTML/CSS/JS files, can I 
+download all the required files locally so that I can use VisuAlgo without connecting to the Internet?<br>
+      A: Go ahead, by doing so, you will have the offline copy of VisuAlgo :). If Internet connection in your place is 
+not that good, this can be a good idea. However, do revisit VisuAlgo (or re-download all files) once a while to get the 
+latest updates. We are still actively developing this tool. Note that VisuAlgo online quiz system is on server-side and 
+technically can <b>never</b> be on client-side to ensure fairness during online quiz. That feature will remain online by nature.<br>
+
+  <li>Q: Can I download VisuAlgo files and <b>host it locally</b> on my own website <b>verbatim</b>?<br>
+      A: <font color="red"><b>BIG NO, this is plagiarism</b></font>. If you want to extend/edit VisuAlgo (see point 
+no 2 above, please contact Dr Steven Halim first for permission). You can have a local copy of VisuAlgo (see point 
+no 3 above) but you can<b>not</b> re-host the same set of files elsewhere.<br>
+
+  <li>Q: I am a CS lecturer/instructor/student, can I use your VisuAlgo for my data structures and/or algorithms 
+class(es) (or the class(es) that I take)?<br>
+      A: By all means, go ahead. We build this tool for <b>all</b> Computer Scientists on earth. If you like what 
+you see, we want you to tell the existence of VisuAlgo to other Computer Scientists that you know =).<br>
+If you have a Facebook, Twitter, or other social media account(s), go ahead and share the existance of VisuAlgo to your friends.<br>
+
+<!--  <li>Q: This URL: http://www.comp.nus.edu.sg/~stevenha/visualization for VisuAlgo is a bit too long. Are you going to register a shorter domain name?<br>
+      A: Yes, it is http://visualgo.net or http://visualgo.org now :), you can try the following shortcuts.<br>
+      <ol>
+        <li><a href="http://visualgo.net/bst.html" target="_top">http://visualgo.net/bst.html (or any other 
+direct visualization page URL that you can remember)</a>
+        <li><a href="http://training.visualgo.net" target="_top">http://training.visualgo.net</a>
+        <li><a href="http://test.visualgo.net" target="_top">http://test.visualgo.net</a>
+      </ol>-->
+
+  <li>Q: The <a href="http://visualgo.net/training.html" target="_top">training mode</a> only contains 
+questions for 9 modules 
+(BST, AVL, 
+Heap, UFDS, Bitmask, Graph DS, Graph Traversal, MST, and SSSP). Are you planning to add more modules for the other visualizations?<br>
+      A: Yes, we are planning to do that soon. The next modules in line are: Sorting, Linked List (and its variants), and likely Hash Tables (future visualization) to cater for the needs of NUS CS1020 module.<br>
+      We also realize the importance of this component to provide holistic learning experience and we will therefore make this part multi-lingual too.<br>
+
+  <li>Q: The <a href="http://visualgo.net/test.html" target="_top">test mode</a> (and the <a 
+href="answerkey.html" 
+target="_top">answer to 
+last test</a>) 
+buttons appear only occassionally. When they appear, I cannot access them as it asks for password. Is it normal?<br>
+      A: Yes, this test mode is only for Dr Steven Halim's current CS2010 students (Aug-Nov 2014). You can 
+just access the <a href="http://visualgo.net/training.html" target="_top">training mode</a> to access 
+similar set of random questions.<br>
+      In the near future, we will open a 'lecturer mode' so that other CS lecturers worldwide can use this tool to administer online test for their students.<br>
+
+</ol>
+
+<h2>Acknowledgements (Only in English)</h2>
+
+<p style="margin-left:5em; margin-right:5em;" align="left">This project is made possible by the generous <a 
+href="http://www.cdtl.nus.edu.sg/teg/" target="_blank">Teaching Enhancement Grant</a> from NUS Centre for 
+Development of Teaching and Learning.<br> <br>
+</p>
+
+</div>
+
+<div id="bottom-bar">
+  <a id="trigger-about">About</a>
+  <a id="trigger-team">Team</a>
+  <a id="trigger-terms">Terms of use</a>
+</div>
+
+<!-- Bottom bar and overlay popups -->
+<div id="dark-overlay"></div>
+<div id="about" class="overlays"></div>
+<div id="team" class="overlays"></div>
+<div id="termsofuse" class="overlays"></div>
+
+</body>
+</html>

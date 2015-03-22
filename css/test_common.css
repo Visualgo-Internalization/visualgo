@@ -1,0 +1,220 @@
+input[type=button], input[type=submit] {
+    display: inline-block;
+    padding: 8px 0px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+}
+#test-screen { display: none; height: 20px; }
+#qn-no {
+    position: fixed;
+    top: 60px;
+    left: 60px;
+    font-size: 36px;
+    width: 50px;
+    line-height: 100%;
+    text-align: right;
+}
+#qn-text {
+    position: fixed;
+    top: 60px;
+    left: 130px;
+    font-size: 16px;
+    width: 800px;
+}
+#qn-text table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+#qn-text table td {
+    border: 1px solid;
+    padding: 2px;
+    text-align: center;
+}
+#qn-text table.hashtable td {
+    width: 40px;
+}
+#ans-key a {
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+}
+#bug-report-form {
+    display: none;
+    height: 220px;
+    width: 400px;
+    margin-left: -200px;
+    margin-top: -150px;
+}
+#mcq { margin-top: 15px; }
+.mcq-option { margin-top: 5px; }
+.mcq-option .box {
+    display: inline-block;
+    background: #ddd;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.mcq-option .circle {
+    display: inline-block;
+    background: #ddd;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.mcq-option .option { font-size: 16px; vertical-align: middle; }
+#graph-drawing-input {
+    display: none;
+}
+#subset { margin-top: 20px; }
+#subset .faux-v {
+    display: inline-block;
+    height: 28px;
+    width: 28px;
+    margin-right: 10px;
+    border-radius: 50px;
+    border: 3px solid black;
+    text-align: center;
+    line-height: 26px;
+    font-weight: bold;
+}
+.number-input {
+    display: block;
+    width: 50px;
+    margin-top: 20px;
+    padding: 7px 10px;
+    box-shadow: #929292 0px 0px 3px inset;
+    font-size: 14px;
+    text-align: center;
+}
+#current-selection { padding-top: 20px; }
+#ans-key { padding-top: 10px; }
+#undo-ans , #clear-ans {
+    margin-top: 20px;
+    width: 80px;
+}
+#undo-ans:disabled, #clear-ans:disabled {
+    background-color: rgb(221, 221, 221) !important;
+}
+#undo-ans:hover, #clear-ans:hover { background: black; }
+#viz { }
+svg { 
+    position: fixed;
+    height: 350px;
+    left: 50%;
+    margin-left: -450px;
+    z-index: -15;
+}
+
+#question-nav {
+    width: 100%;
+    position: fixed;
+    bottom: 42px;
+    text-align: center;
+    padding: 10px 0px;
+    z-index: -11;
+
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;
+}
+#question-nav a.qnno {
+    padding: 0px 10px;
+    cursor: pointer;
+    opacity: 0.4;
+    text-align: center;
+    width: 16px;
+}
+#question-nav a.selected {
+    position: relative;
+    opacity: 1.0;
+}
+#question-nav a.answered {
+    opacity: 1.0;
+}
+#question-nav a.selected:before {
+    content: " ";
+    position: absolute;
+    top: -12px;
+    left: 8px;
+    height: 0px;
+    width: 0px;
+    border-style:solid;
+    border-width:10px;
+    border-color: transparent;
+    border-top-color: #eee;
+}
+
+#info {
+    position: fixed;
+    top: 60px;
+    right: 60px;
+    width: 200px;
+    text-align: right;
+}
+#info #student-name { font-size: 16px; text-transform: uppercase; }
+#info #infoscore { font-size: 30px; }
+#info #time-left { font-size: 30px; }
+#submit-test {
+    margin-top: 15px;
+    width: 110px;
+    text-transform: uppercase;
+}
+#submit-test:hover { background: black; }
+
+#result-screen {
+    display: none;
+    position: fixed;
+    height: 260px;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    margin-top: -130px;
+    margin-left: -250px;
+    text-align: center;
+    font-size: 20px;
+}
+#result-name {
+    font-size: 20px;
+    text-transform: uppercase;
+}
+#score {
+    margin: 20px 0px;
+    font-size: 40px;
+    font-weight: bold;
+}
+#goto-answer {
+    margin-top: 20px;
+    width: 150px;
+}
+
+#drawgraph svg{
+    position: relative;
+    width: 900px;
+    height: 350px;
+    left: 0%;
+    margin-left: 0px;
+    z-index: 0;
+}
+
+#drawgraph-instructions {
+    height: 80px;
+    overflow: auto;
+    font-size: 16px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 20px;
+}
+
+.code-snippet {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 14px;
+}
