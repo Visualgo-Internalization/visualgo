@@ -1,0 +1,36 @@
+.draw { bottom: 173px; }
+#draw-status p {color:black;}
+#draw-warn p {color:#FFA824;}
+#draw-err p {color:red;}
+#drawgraph 
+{
+	height: 700px;
+	width: 1100px;
+	margin-left: -550px;
+	margin-top: -350px;
+}
+
+#drawgraph-actions {
+	padding-left : 100px;
+	bottom: 200px;
+	left: 200px;
+	float:left;
+}
+#drawgraph-actions p { padding: 10px; cursor: pointer; float:left;}
+#drawgraph-actions #drawgraph-form { padding: 10px; cursor: pointer; float:left;}
+#drawgraph-actions p:hover { background: black; color: white;}
+#drawgraph-actions p:first-of-type { padding-top: 10px; }
+#drawgraph-actions p:last-of-type { padding-bottom: 10px; }
+#drawgraph-actions-hide {
+	bottom: 60px;
+	left: 0px;
+	padding-left: 14px;
+	padding-right: 15px;
+}
+
+#samplejson-input { padding: 5px 8px; }
+#samplejson-go p
+{
+	padding: 8px 8px 7px; 
+	float:right;
+}

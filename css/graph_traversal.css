@@ -1,0 +1,135 @@
+@charset "utf-8";
+
+/*all action pullout (input) stuff here*/
+
+#twosat-board {
+	height: 470px;
+	width: 600px;
+	margin-left: -300px;
+	margin-top: -235px;
+}
+
+.create { bottom: 307px; }
+	.create p { padding: 5px 8px; }
+	#create-err { padding: 5px 0px; }
+
+.samples { bottom: 279px; }
+	.samples p { padding: 5px 8px; }
+	#samples-err { padding: 5px 0px; }
+
+.directedChange { bottom : 254px;}
+	#bipartite-err {padding :5px 0px;}
+
+.bfs { bottom: 222px; }
+	#bfs-input input {
+		width: 25px;
+		padding: 6px 8px 5px;
+	}
+	#bfs-go p { padding: 5px 8px; }
+	#bfs-err { padding: 5px 0px; }
+
+.dfs { bottom: 195px; }
+	#dfs-input input {
+		width: 25px;
+		padding: 6px 8px 5px;
+	}
+	#dfs-go p { padding: 5px 8px; }
+	#dfs-err { padding: 5px 0px; }
+
+.bridge { bottom : 167px;}
+	#bridge-err {padding :5px 0px;}
+
+.scc { bottom : 140px;}
+	.scc p { padding: 5px 8px; }
+	#scc-err {padding :5px 0px;}
+
+.bipartite { bottom : 111px;}
+	.bipartite p { padding: 5px 8px; }
+	#bipartite-err {padding :5px 0px;}
+
+.topo { bottom : 83px;}
+	.topo p { padding: 5px 8px; }
+	#topo-err {padding :5px 0px;}
+
+.twosat { bottom : 55px;}
+	#twosat-input input {
+		width: 25px;
+		padding: 6px 8px 5px;
+	}
+	.twosat p { padding: 5px 8px; }
+	#twosat-err {padding :5px 0px;}
+
+/*all tutorial stuff here*/
+#sssp-tutorial-1 {
+	top: 60px;
+	left: 60px;
+	width: 250px;
+}
+#sssp-tutorial-2 {
+	bottom: 225px;
+	left: 60px;
+	width: 350px;
+}
+	#sssp-tutorial-2:before {
+		top: 100%;
+		left: 15%;
+		border-top-color: black;
+		margin-left: -10px;
+	}
+#sssp-tutorial-3 {
+	top: 400px;
+	left: 50%;
+	width: 200px;
+	margin-left: -110px;
+}
+	#sssp-tutorial-3:before {
+		bottom: 100%;
+		left: 50%;
+		border-bottom-color: black;
+		margin-left: -10px;
+	}
+#sssp-tutorial-4 {
+	bottom: 335px;
+	right: 150px;
+	width: 200px;
+}
+	#sssp-tutorial-4:before {
+		top: 100%;
+		left: 20%;
+		border-top-color: black;
+		margin-left: -10px;
+	}
+#sssp-tutorial-5 {
+	bottom: 275px;
+	right: 170px;
+	width: 180px;
+}
+	#sssp-tutorial-5:before {
+		top: 100%;
+		left: 20%;
+		border-top-color: black;
+		margin-left: -10px;
+	}
+#sssp-tutorial-6 {
+	bottom: 70px;
+	left: 50%;
+	width: 260px;
+	margin-left: -142px;
+}
+	#sssp-tutorial-6:before {
+		top: 100%;
+		left: 50%;
+		border-top-color: black;
+		margin-left: -10px;
+	}
+#sssp-tutorial-7 {
+	top: 70px;
+	right: 60px;
+	width: 150px;
+}
+	#sssp-tutorial-7:before {
+		bottom: 100%;
+		left: 50%;
+		border-bottom-color: black;
+		margin-left: -10px;
+	}
