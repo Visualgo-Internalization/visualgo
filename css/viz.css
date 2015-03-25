@@ -2,6 +2,34 @@
 
 html { overflow-y: auto; } /*override common.css*/
 
+#language-menu {
+    z-index: 1001;
+    float: right;
+    background: black;
+    font-size: 14px;
+    width: 160px;
+    position: relative;    
+}
+#language-button {
+    cursor: pointer; padding: 11px 15px;
+}
+#language-button img { /*down arrow*/
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    display: inline-block;
+}
+#language-options {
+    position: absolute;
+    width: 160px;
+    background: black;
+    display: none;
+}
+#language-options p {
+    display: block;
+    padding: 8px 15px;
+}
+
 /*top-bar right*/
 #mode-menu {
     z-index: 1001;
