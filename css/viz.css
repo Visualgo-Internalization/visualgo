@@ -2,6 +2,36 @@
 
 html { overflow-y: auto; } /*override common.css*/
 
+/*admin*/
+#admin-menu {
+    z-index: 1001;
+    float: right;
+    background: black;
+    font-size: 14px;
+    width: 160px;
+    position: relative;    
+}
+#admin-button {
+    cursor: pointer; padding: 11px 15px;
+}
+#admin-button img { /*down arrow*/
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    display: inline-block;
+}
+#admin-options {
+    position: absolute;
+    width: 160px;
+    background: black;
+    display: none;
+}
+#admin-options p {
+    display: block;
+    padding: 8px 15px;
+}
+
+/*language*/
 #language-menu {
     z-index: 1001;
     float: right;

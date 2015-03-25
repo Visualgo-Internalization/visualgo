@@ -187,6 +187,17 @@ $(document).ready(function() {
         $('#status-hide img').attr('src', 'img/arrow_black_right.png');
     }
 
+    //admin menu
+    $('#admin-menu').hover(function() {
+        $('#admin-options').toggle();
+    });
+
+    $('#admin-options p').hover(function() {
+        $(this).css("background", surpriseColour);
+    }, function() {
+        $(this).css("background", "black");
+    });
+
     //language menu
     $('#language-menu').hover(function() {
         $('#language-options').toggle();
