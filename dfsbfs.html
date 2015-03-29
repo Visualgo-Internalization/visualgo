@@ -36,7 +36,7 @@
   <a id="home" href="http://visualgo.net" target="_top">Visu<span class="colour">Algo</span></a>&nbsp;&nbsp;&nbsp;
 
     <span id="title">
-      <a class="selected-viz">Graph Traversal</a>
+      <a class="selected-viz 100">Graph Traversal</a>
     </span>
 
     <a class="right-links" id="login-link">Login</a>
@@ -62,14 +62,14 @@
         <div id="English" class="languages">
           <p>English</p>
         </div>
-        <div id="Vietnamese" class="languages">
+        <div id="Vietnamese">
           <p>Vietnamese</p>
         </div>
         <div id="Chinese" class="languages">
           <p>Chinese</p>
         </div>
-        <div id="Indian" class="languages">
-          <p>Indian</p>
+        <div id="Indonesian" class="languages">
+          <p>Indonesian</p>
         </div>
       </div>
     </div>
@@ -96,7 +96,7 @@
     <div id="viz"></div>
     <div id="current-action" class="panel"><p></p></div>
     <div id="actions" class="panel">
-        <p id="draw" class="execAction" onclick=drawGraph()>Draw Graph</p>
+        <p id="draw" class="execAction 10" onclick=drawGraph()>Draw Graph</p>
         <p id="create" onclick=createRandom(true)>Random Graph</p>
         <p id="sample">Sample Graphs</p>
         <p id="directedChange" onclick=directedChange() >Directed <-> Undirected </p>
@@ -265,7 +265,8 @@
 <script src="js/graph_library/GraphVertexWidget.js"></script>
 <script src="js/graph_library/GraphEdgeWidget.js"></script>
 <script src="js/widgets/GraphTraversalWidget.js"></script>
-<script src="js/admin_action.js"></script>
+<script src="js/internalization/admin_action.js"></script>
+<script src="js/internalization/languages.js"></script>
 
 <!-- graph drawing purposes -->
 <script src="js/drawgraph.js"></script>

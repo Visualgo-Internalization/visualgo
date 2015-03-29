@@ -327,7 +327,7 @@ var GraphTraversal = function(){
  
     currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                               treeEdge, backEdge, crossEdge, forwardEdge);
-    currentState["status"] = 'BFS is completed. Orange edges create a BFS tree.<br>Green, blue is cross, back edge respectively.';
+    currentState['status'] = 'BFS is completed. Orange edges create a BFS tree.<br>Green, blue is cross, back edge respectively.';
     stateList.push(currentState);
 
     console.log(stateList);
