@@ -39,7 +39,7 @@
       <a class="selected-viz 100">Graph Traversal</a>
     </span>
 
-    <a class="right-links" id="login-link">Login</a>
+    <a class="right-links 101" id="login-link">Login</a>
 
     <div id="admin-menu">
       <div id="admin-button">
@@ -54,7 +54,7 @@
     </div>
 
     <div id="language-menu">
-      <div id="language-button">
+      <div class="102" id="language-button">
         Language<img src="img/arrow_white.png" alt="Home"/>
       </div>
 
@@ -75,45 +75,45 @@
     </div>
 
     <div id="mode-menu">
-      <div id="mode-button">
+      <div class="103" id="mode-button">
         Exploration Mode<img src="img/arrow_white.png" alt="Home"/>
       </div>
       <div id="other-modes">
-        <a href="#">Tutorial Mode</a>
+        <a class="104" href="#">Tutorial Mode</a>
       </div>
     </div>
 </div>
 
 <div id="login-overlay">
   <div id="login-overlay-content">
-    <h1>Login</h1>
-    <div id="login-go">
+    <h1 class="105" >Login</h1>
+    <div class="106" id="login-go">
       <img src="img/facebook_logo.png"/>Log In With Facebook
     </div>
   </div>
 </div>
     
     <div id="viz"></div>
-    <div id="current-action" class="panel"><p></p></div>
+    <div class="108" id="current-action" class="panel"><p></p></div>
     <div id="actions" class="panel">
-        <p id="draw" class="execAction 10" onclick=drawGraph()>Draw Graph</p>
-        <p id="create" onclick=createRandom(true)>Random Graph</p>
-        <p id="sample">Sample Graphs</p>
-        <p id="directedChange" onclick=directedChange() >Directed <-> Undirected </p>
-        <p id="bfs">BFS</p>
-        <p id="dfs">DFS</p>
-        <p id="bridge" onclick=bridge() >Cut Vertex & Bridge</p>
-        <p id="scc"> SCC Algorithms</p> 
-        <p id="bipartite">Bipartite Graph check</p>
-        <p id="topo">Topo Sort</p>
-        <p id="twosat">Two-SAT checker</p>
+        <p class="110" id="draw" class="execAction 10" onclick=drawGraph()>Draw Graph</p>
+        <p class="111" id="create" onclick=createRandom(true)>Random Graph</p>
+        <p class="112" id="sample">Sample Graphs</p>
+        <p class="113" id="directedChange" onclick=directedChange() >Directed <-> Undirected </p>
+        <p class="114" id="bfs">BFS</p>
+        <p class="115" id="dfs">DFS</p>
+        <p class="116" id="bridge" onclick=bridge() >Cut Vertex & Bridge</p>
+        <p class="117" id="scc"> SCC Algorithms</p> 
+        <p class="118" id="bipartite">Bipartite Graph check</p>
+        <p class="119" id="topo">Topo Sort</p>
+        <p class="120" id="twosat">Two-SAT checker</p>
     </div>
 
     <div id="actions-hide" class="panel-hide"><img src="img/arrow_white_right.png" title="show/hide actions panel"/></div>
     <div id="actions-extras">
     <!--put all the extra action pullouts (input) and error messages here-->
         <div class="create action-menu-pullout">
-            <div id="rate-sample-graph" class="new-menu-option">
+            <div id="rate-sample-graph" class="new-menu-option 121">
                 Rate This Graph:&nbsp;
                 <span id="rate-sample-graph-1" class="colour rating-star">&#9734;</span>
                 <span id="rate-sample-graph-2" class="colour rating-star">&#9734;</span>
@@ -132,19 +132,19 @@
             <div id="sample6" class="execAction new-menu-option coloured-menu-option" onclick=sample(SSSP_EXAMPLE_CP3_4_18)><p>CP3 4.18</p></div>
             <div id="sample7" class="execAction new-menu-option coloured-menu-option" onclick=sample(SSSP_EXAMPLE_CP3_4_19)><p>CP3 4.19</p></div>
             <input type="text" id="samplejson-input" title="Enter JSON text" autocomplete="off" value=5 />
-            <div id="samplejson-go" class="execAction new-menu-option coloured-menu-option" onclick=importjson()title="Import JSON"><p>Go</p></div>
+            <div id="samplejson-go" class="execAction new-menu-option coloured-menu-option" onclick=importjson()title="Import JSON"><p  class="122">Go</p></div>
             <div id="samples-err" class="err" style="z-index: 2000;"></div>
         </div>   
              
         <div class="bfs action-menu-pullout">
             <div id="bfs-input" class="new-menu-option"><input type="text" id="bfs-v" title="Enter the starting vertex" autocomplete="off" value=0 /></div>
-            <div id="bfs-go" class="execAction coloured-menu-option" onclick=bfs()><p>GO</p></div>
+            <div id="bfs-go" class="execAction coloured-menu-option" onclick=bfs()><p  class="123">GO</p></div>
             <div id="bfs-err" class="err"></div>
         </div>
 
         <div class="dfs action-menu-pullout">
             <div id="dfs-input" class="new-menu-option"><input type="text" id="dfs-v" title="Enter the starting vertex" autocomplete="off" value=0 /></div>
-            <div id="dfs-go" class="execAction coloured-menu-option" onclick=dfs()><p>GO</p></div>
+            <div id="dfs-go" class="execAction coloured-menu-option" onclick=dfs()><p  class="124">GO</p></div>
             <div id="dfs-err" class="err"></div>
         </div>
 
@@ -153,29 +153,29 @@
         </div>
 
         <div class="scc action-menu-pullout">
-            <div id="tarjan" class="execAction new-menu-option coloured-menu-option" onclick=tarjan()><p>Tarjan</p></div>
-            <div id="kosaraju" class="execAction new-menu-option coloured-menu-option" onclick=kosaraju()><p>Kosaraju</p></div>
+            <div id="tarjan" class="execAction new-menu-option coloured-menu-option 125" onclick=tarjan()><p>Tarjan</p></div>
+            <div id="kosaraju" class="execAction new-menu-option coloured-menu-option 126" onclick=kosaraju()><p>Kosaraju</p></div>
             <div id="scc-err" class="err"></div>
         </div>
 
         <div class="bipartite action-menu-pullout">
-            <div id="bipartiteDfs" class="execAction new-menu-option coloured-menu-option" onclick=bipartiteDfs()><p>DFS</p></div>
-            <div id="bipartiteBfs" class="execAction new-menu-option coloured-menu-option" onclick=bipartiteBfs()><p>BFS</p></div>
+            <div id="bipartiteDfs" class="execAction new-menu-option coloured-menu-option 127" onclick=bipartiteDfs()><p>DFS</p></div>
+            <div id="bipartiteBfs" class="execAction new-menu-option coloured-menu-option 128" onclick=bipartiteBfs()><p>BFS</p></div>
             <div id="bipartite-err" class="err"></div>
         </div>
         <div class="topo action-menu-pullout">
-            <div id="toposortDfs" class="execAction new-menu-option coloured-menu-option" onclick=toposortDfs()><p>DFS</p></div>
-            <div id="toposortBfs" class="execAction new-menu-option coloured-menu-option" onclick=toposortBfs()><p>BFS</p></div>
+            <div id="toposortDfs" class="execAction new-menu-option coloured-menu-option 129" onclick=toposortDfs()><p>DFS</p></div>
+            <div id="toposortBfs" class="execAction new-menu-option coloured-menu-option 130" onclick=toposortBfs()><p>BFS</p></div>
             <div id="topo-err" class="err"></div>
         </div>
         <div class="twosat action-menu-pullout">
-            <div class="new-menu-option coloured-menu-option"><p>Number of clauses</p></div>
-            <div id="twosat-input" class="new-menu-option"><input type="text" id="twosat-v1" title="Enter the number of clauses" autocomplete="off" value=0 /></div>
+            <div class="new-menu-option coloured-menu-option 131"><p>Number of clauses</p></div>
+            <div id="twosat-input" class="new-menu-option 132"><input type="text" id="twosat-v1" title="Enter the number of clauses" autocomplete="off" value=0 /></div>
 
-             <div class="new-menu-option coloured-menu-option"><p>Number of variables</p></div>
-            <div id="twosat-input" class="new-menu-option"><input type="text" id="twosat-v2" title="Enter the number of variables" autocomplete="off" value=0 /></div>
+             <div class="new-menu-option coloured-menu-option 134"><p>Number of variables</p></div>
+            <div id="twosat-input" class="new-menu-option 135"><input type="text" id="twosat-v2" title="Enter the number of variables" autocomplete="off" value=0 /></div>
 
-            <div id="twosat-go" class="execAction coloured-menu-option" onclick=twosat()><p>GO</p></div>
+            <div id="twosat-go" class="execAction coloured-menu-option" onclick=twosat()><p class="136">GO</p></div>
             <div id="twosat-err" class="err"></div>
         </div>
         <div class="directedChange action-menu-pullout">
@@ -202,13 +202,14 @@
 <div id="right-bar"></div>
 <!-- Bottom bar and overlay popups -->
 <div id="bottom-bar">
-	<a id="trigger-about">About</a>
-    <a id="trigger-team">Team</a>
-    <a id="trigger-terms">Terms of use</a>
+	<a class="137" id="trigger-about">About</a>
+    <a class="138" id="trigger-team">Team</a>
+    <a class="139" id="trigger-terms">Terms of use</a>
 </div>
 
 <div id="media-controls">
-	<div id="speed-control">slow<div id="speed-input"></div>fast</div>
+	<div id="speed-control"><span class="140">slow</span><div id="speed-input"></div><span class="141">fast</span>
+  </div>
 	<span id="go-to-beginning" class="media-control-button" title="go to beginning" onclick=goToBeginning()><img src="img/goToBeginning.png" alt="go to beginning" /></span>
 	<span id="previous" class="media-control-button" title="step backward" onclick=stepBackward()><img src="img/prevFrame.png" alt="previous frame" /></span>
     <span id="pause" class="media-control-button" title="pause" onclick=pause()><img src="img/pause.png" alt="pause" /></span>
@@ -226,33 +227,33 @@
 <div id="twosat-board" class="overlays"></div>
 
 <!--tutorial dialogs here-->
-<div id="sssp-tutorial-1" class="tutorial-dialog">
+<div id="sssp-tutorial-1" class="tutorial-dialog 142">
   In the Graph-Traversal problem, we mainly use DFS (Depth-First-Search) and BFS (Breadth-Frist-Search) to travel the graph.<br/><br/> We also mention about a lot of DFS and BFS variants such as cut vertex, bridge and SCC algorithms, ...
-     <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
+     <div class="tutorial-next 143">Next<img src="img/arrow_white_right.png"/></div>
 </div>
-<div id="sssp-tutorial-2" class="tutorial-dialog">
-	Choose a sample graph <!--or draw your own graph-->and try running the different algorithms on it:<br><br>The basis O(n) DFS and BFS<br>The O(n) cut vertex and bridge algorithm<br>The scc algorithms<br>The bipartite graph checker<br>The topological sort algorithms<br>And the two-sat checker algorithm<br>...<div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
+<div id="sssp-tutorial-2" class="tutorial-dialog 144">
+	Choose a sample graph <!--or draw your own graph-->and try running the different algorithms on it:<br><br>The basis O(n) DFS and BFS<br>The O(n) cut vertex and bridge algorithm<br>The scc algorithms<br>The bipartite graph checker<br>The topological sort algorithms<br>And the two-sat checker algorithm<br>...<div class="tutorial-next 143">Next<img src="img/arrow_white_right.png"/></div>
 </div>
-<div id="sssp-tutorial-3" class="tutorial-dialog">
+<div id="sssp-tutorial-3" class="tutorial-dialog 145">
 	When the algorithm is running, the animation will be show here.
-    <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
+    <div class="tutorial-next 143">Next<img src="img/arrow_white_right.png"/></div>
 </div>
-<div id="sssp-tutorial-4" class="tutorial-dialog">
+<div id="sssp-tutorial-4" class="tutorial-dialog 146">
 	The status bar explains the execution of the algorithm at each animation step.
-    <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
+    <div class="tutorial-next 143">Next<img src="img/arrow_white_right.png"/></div>
 </div>
-<div id="sssp-tutorial-5" class="tutorial-dialog">
+<div id="sssp-tutorial-5" class="tutorial-dialog 147">
 	You can also follow the psuedocode highlights to trace the algorithm.
-    <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
+    <div class="tutorial-next 143">Next<img src="img/arrow_white_right.png"/></div>
 </div>
-<div id="sssp-tutorial-6" class="tutorial-dialog">
+<div id="sssp-tutorial-6" class="tutorial-dialog 148">
   Control the animation with the player controls! Keyboard shortcuts are:<br/>
     <div style="margin-top: 8px;"><strong>Spacebar:</strong> play/pause/replay</div>
     <strong>Left/right arrows:</strong> step backward/step forward<br/>
     <strong>-/+:</strong> decrease/increase speed<br/>
     <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
 </div>
-<div id="sssp-tutorial-7" class="tutorial-dialog">
+<div id="sssp-tutorial-7" class="tutorial-dialog 149">
   Return to "Exploration Mode" to start exploring!
 </div>
 
