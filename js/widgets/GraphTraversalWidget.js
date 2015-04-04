@@ -78,13 +78,7 @@ var GraphTraversal = function(){
 
   statusChecking = function()
   {
-    /*
-    if (amountVertex == 0)
-      $("#draw-status p").html("Graph is empty");
-    else
-      $("#draw-status p").html("");
-    */
-    $("#draw-status p").html("Please draw various kind of graph with varying properties to enhance our question bank.");
+    updateJSData("#draw-status p", 200, "Please draw various kind of graph with varying properties to enhance our question bank.");
   }
 
   warnChecking = function()
@@ -93,8 +87,11 @@ var GraphTraversal = function(){
     if (amountVertex >= 10)
       warn += "Too much vertex on screen, consider drawing smaller graph. ";
 
-    if (warn == "") $("#draw-warn p").html("No Warning");
-    else $("#draw-warn p").html(warn);
+    if (warn == "") {
+      updateJSData("#draw-warn p", 201, "No Warning");
+    } else {
+      updateJSData("#draw-warn p", 202, warn);
+    }
   }
 
   errorChecking = function()
@@ -102,11 +99,11 @@ var GraphTraversal = function(){
     var error = "";
     if (amountVertex == 0)
     {
-      $("#draw-err p").html("Graph cannot be empty. ");
+      updateJSData("#draw-err p", 203, "Graph cannot be empty. ");
       return;
     }
 
-    if (error == "") $("#draw-err p").html("No Error");
+    if (error == "") updateJSData("#draw-err p", 204, "No Error");
     else $("#draw-err p").html(error);
   }
 
@@ -152,16 +149,16 @@ var GraphTraversal = function(){
     console.log('test submit, graph traversal');
 
     $.ajax({
-                    url: PHP_DOMAIN + "php/Graph.php?mode=" + MODE_SUBMIT_GRAPH,
-                    type: "POST",
-                    data: {canvasWidth: 1000, canvasHeight: 500, graphTopics: 'Graph Traversal', graphState: graph, fbAccessToken: fbAccessToken},
-                    error: function(xhr, errorType, exception) { //Triggered if an error communicating with server
-                        var errorMessage = exception || xhr.statusText; //If exception null, then default to xhr.statusText
-                        alert("There was an error submitting your graph " + errorMessage);
-                    }
-                }).done(function(data) {
-                    console.log(data);
-                });
+        url: PHP_DOMAIN + "php/Graph.php?mode=" + MODE_SUBMIT_GRAPH,
+        type: "POST",
+        data: {canvasWidth: 1000, canvasHeight: 500, graphTopics: 'Graph Traversal', graphState: graph, fbAccessToken: fbAccessToken},
+        error: function(xhr, errorType, exception) { //Triggered if an error communicating with server
+            var errorMessage = exception || xhr.statusText; //If exception null, then default to xhr.statusText
+            alert("There was an error submitting your graph " + errorMessage);
+        }
+    }).done(function(data) {
+        console.log(data);
+    });
 
 /*
     $.ajax({
@@ -216,12 +213,12 @@ var GraphTraversal = function(){
 
     // error checks
     if (amountVertex == 0) { // no graph
-      $('#bfs-err').html("There is no graph to run this on. Please select a sample graph first.");
+      updateJSData('#bfs-err', 205, "There is no graph to run this on. Please select a sample graph first.");
       return false;
     }
 
     if (sourceVertex >= amountVertex) { // source vertex not in range
-      $('#bfs-err').html("This vertex does not exist in the graph. Please select another source vertex.");
+      updateJSData('#bfs-err', 206, "This vertex does not exist in the graph. Please select another source vertex.");
       return false;
     }
 
@@ -235,7 +232,8 @@ var GraphTraversal = function(){
     vertexHighlighted[sourceVertex] = true;
     currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                               treeEdge, backEdge, crossEdge, forwardEdge);
-    currentState["status"] = 'Start from source s = ' + sourceVertex + '<br>Set d[' + sourceVertex + '] = 0';
+    currentState["status"] = getTranslatedHtml(207,'Start from source') + ' s = ' + sourceVertex + '<br>'
+                            + getTranslatedHtml(208, 'Set') + ' d[' + sourceVertex + '] = 0';
     currentState["lineNo"] = 1;
     stateList.push(currentState);
     delete vertexHighlighted[sourceVertex];
@@ -256,7 +254,8 @@ var GraphTraversal = function(){
       vertexHighlighted[q[0]] = true;
       currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                               treeEdge, backEdge, crossEdge, forwardEdge);
-      currentState["status"] = 'The queue is now {' + q + '}<br>Exploring neighbors of vertex u = ' + q[0];
+      currentState["status"] = getTranslatedHtml(209, 'The queue is now') +' {' + q + '}<br>'
+                             + getTranslatedHtml(210, 'Exploring neighbors of vertex') + ' u = ' + q[0];
       currentState["lineNo"] = 2;
       stateList.push(currentState);
 
@@ -290,21 +289,22 @@ var GraphTraversal = function(){
           stateList.push(currentState);
           if (p[vertexB] == -1) {
               p[vertexB] = vertexA;
-              thisStatus = thisStatus + '<br>'+vertexB+' is free, we update p[' + vertexB + '] = ' + p[vertexB];
+              thisStatus = thisStatus + '<br>' + vertexB + ' ' + getTranslatedHtml(211,'is free') + ', '
+                          + getTranslatedHtml(212, 'we update') + ' p[' + vertexB + '] = ' + p[vertexB];
               q.push(vertexB);
               vertexTraversing[vertexB] = true;
           } else if (p[u] == vertexB) {
-              thisStatus = thisStatus + '<br>No change.';
+              thisStatus = thisStatus + '<br>' + getTranslatedHtml(212,'No change.');
           } else {
-              thisStatus = thisStatus + '<br>'+vertexB+' is visited.';
+              thisStatus = thisStatus + '<br>'+vertexB+' '+getTranslatedHtml(213, 'is visited.');
               if (is_parent(vertexB, u)) {
-                  thisStatus = thisStatus + 'This is a back edge.'
+                  thisStatus = thisStatus + getTranslatedHtml(214, 'This is a back edge.');
                   backEdge[j] = true;
                   for (var z = 0; z < amountEdge; z ++) 
                       if (internalEdgeList[z]["vertexA"] == vertexB && internalEdgeList[z]["vertexB"] == vertexA) 
                           backEdge[z] = true;
               } else {
-                  thisStatus = thisStatus + 'This is a cross edge.'
+                  thisStatus = thisStatus + getTranslatedHtml(215,'This is a cross edge.');
                   crossEdge[j] = true;
                   for (var z = 0; z < amountEdge; z ++) 
                       if (internalEdgeList[z]["vertexA"] == vertexB && internalEdgeList[z]["vertexB"] == vertexA) 
@@ -327,7 +327,8 @@ var GraphTraversal = function(){
  
     currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                               treeEdge, backEdge, crossEdge, forwardEdge);
-    currentState['status'] = 'BFS is completed. Orange edges create a BFS tree.<br>Green, blue is cross, back edge respectively.';
+    currentState['status'] = getTranslatedHtml(216, 'BFS is completed. Orange edges create a BFS tree.')
+                +'<br>'+getTranslatedHtml(217, 'Green, blue is cross, back edge respectively.');
     stateList.push(currentState);
 
     console.log(stateList);
@@ -346,18 +347,21 @@ var GraphTraversal = function(){
 
     // error checks   
     if (amountVertex == 0) { // no graph
-      $('#dfs-err').html("There is no graph to run this on. Please select a sample graph first.");
+      updateJSData('#dfs-err', 218, "There is no graph to run this on. Please select a sample graph first.");
       return false;
     }
 
     if (sourceVertex >= amountVertex || sourceVertex < 0) { // source vertex not in range
-      $('#dfs-err').html("This vertex does not exist in the graph. Please select another source vertex.");
+      updateJSData('#dfs-err', 219, "This vertex does not exist in the graph. Please select another source vertex.");
       return false;
     } 
 
     var p = {}, low = {}, num = {}, Count = 0;
-    for (var i = 0; i < amountVertex; i++) p[i] = -1;
+    for (var i = 0; i < amountVertex; i++){
+      p[i] = -1;
+    }
     p[sourceVertex] = -2;
+
     function is_parent(u, v) {
       while (v>=0) {
         if (u == v) return true;
@@ -397,7 +401,7 @@ var GraphTraversal = function(){
         }
         currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                                    treeEdge, backEdge, crossEdge, forwardEdge);
-        currentState["status"] = "Try edge " + u + " -> " + vertexB;
+        currentState["status"] = getTranslatedHtml(220, "Try edge") + " " + u + " -> " + vertexB;
         currentState["lineNo"] = 2;
         currentState["el"][j]["animateHighlighted"] = true;
         stateList.push(currentState);
@@ -407,7 +411,9 @@ var GraphTraversal = function(){
             currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                                        treeEdge, backEdge, crossEdge, forwardEdge);
             currentState["lineNo"] = [3,4]; 
-            currentState["status"] = "Try edge " + u + " -> " + vertexB + "<br>"+vertexB+" hasn't been visited, we have a tree edge.";
+            currentState["status"] = getTranslatedHtml(221, "Try edge") + " " + u + " -> " + vertexB + "<br>" + vertexB + " "
+                                    + getTranslatedHtml(222, "hasn't been visited") + ", "
+                                    + getTranslatedHtml(223, "we have a tree edge.");
             stateList.push(currentState);
             
             p[vertexB] = u;
@@ -419,7 +425,9 @@ var GraphTraversal = function(){
             delete edgeHighlighted[j];
             currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                                        treeEdge, backEdge, crossEdge, forwardEdge);
-            currentState["status"] = "Finish DFS " + vertexB + ", back track<br>DFS( " + u + " )";
+            currentState["status"] = getTranslatedHtml(224, "Finish") + " DFS(" + vertexB + "), "
+                                    +getTranslatedHtml(225, "back track")
+                                    +"<br>DFS( " + u + " )";
             currentState["lineNo"] = 1;
             stateList.push(currentState);
         } else if (p[u] != vertexB && !backEdge[j] && !crossEdge[j] && !forwardEdge[j]) {
@@ -439,17 +447,20 @@ var GraphTraversal = function(){
             delete edgeHighlighted[j];  
             currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                                        treeEdge, backEdge, crossEdge, forwardEdge);
-            var thisStatus = "Try edge " + u + " -> " + vertexB + "<br>Vertex " + vertexB + " is visited. We have a ";
-            if (backEdge[j]) thisStatus = thisStatus+"back edge.";
-                else if (forwardEdge[j]) thisStatus = thisStatus+"forward edge.";
-                else thisStatus = thisStatus+"cross edge.";
+            var thisStatus = getTranslatedHtml(226, "Try edge") + " " + u + " -> " + vertexB + "<br>"
+                            +getTranslatedHtml(227, "Vertex is visited") + " : " + vertexB;
+            if (backEdge[j]) thisStatus = thisStatus + getTranslatedHtml(228,"We have a back edge.");
+                else if (forwardEdge[j]) thisStatus = thisStatus + getTranslatedHtml(229, "We have a forward edge.");
+                else thisStatus = thisStatus + getTranslatedHtml(230, "We have a cross edge.");
             currentState["status"] = thisStatus;
             currentState["lineNo"] = 5;
             stateList.push(currentState);
         } else {
             currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                                       treeEdge, backEdge, crossEdge, forwardEdge);
-            currentState["status"] = "Try edge " + u + " -> " + vertexB + "<br>"+vertexB+" is visited, no change.";
+            currentState["status"] = getTranslatedHtml(231, "Try edge") + " " + u + " -> " + vertexB + "<br>"+vertexB+" "
+                                   + getTranslatedHtml(232, "is visited") + ", " 
+                                   + getTranslatedHtml(233, "no change.");
             currentState["lineNo"] = 5;
             stateList.push(currentState);
         }
@@ -461,7 +472,7 @@ var GraphTraversal = function(){
 
     currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                                treeEdge, backEdge, crossEdge, forwardEdge);
-    currentState["status"] = "DFS is completed. Red edges create a DFS tree. Green, grey, blue is<br>cross, forward, back edge respectively. Each blue edge creates a cycle.";
+    currentState["status"] = getTranslatedHtml(234, "DFS is completed. Red edges create a DFS tree. Green, grey, blue is<br>cross, forward, back edge respectively. Each blue edge creates a cycle.");
     currentState["lineNo"] = 0;
     stateList.push(currentState);
     
@@ -482,11 +493,11 @@ var GraphTraversal = function(){
 
       //check error
       if (DIRECTED_GR) {
-          $('#bridge-err').html("Please make the graph undirected");
+          updateJSData('#bridge-err', 235, "Please make the graph undirected");
           return false;
       }
       if (amountVertex == 0) { // no graph
-          $('#bridge-err').html("There is no graph to run this on. Please select a sample graph first.");
+          updateJSData('#bridge-err', 236, "There is no graph to run this on. Please select a sample graph first.");
           return false;
       }
 
@@ -501,7 +512,8 @@ var GraphTraversal = function(){
           if (p[i] == -1) {
               currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                                    treeEdge, backEdge, crossEdge, forwardEdge, hiddenEdge);
-              currentState["status"] = "Vertex " + i + " hasn't been visited<br>DfsCount = "+Count;
+              currentState["status"] = getTranslatedHtml(237, "Vertex hasn't been visited")
+                                      + " :" + i + "<br>DfsCount = "+Count;
               currentState["lineNo"] = 1;
               stateList.push(currentState);
               p[i]--; ROOT = i; Tdfs(i);
@@ -537,7 +549,7 @@ var GraphTraversal = function(){
                           edgeHighlighted[z] = true;
                   currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                                  treeEdge, backEdge, crossEdge, forwardEdge, hiddenEdge);
-                  currentState["status"] = "Try edge " + vertexA + " -> " + vertexB + "<br>DfsCount = "+Count;
+                  currentState["status"] = getTranslatedHtml(239, "Try edge") + " " + vertexA + " -> " + vertexB + "<br>DfsCount = "+Count;
                   currentState["lineNo"] = 3;
                   currentState["el"][j]["animateHighlighted"] = true;
                   for(var key in Bridgess) {
@@ -555,7 +567,8 @@ var GraphTraversal = function(){
                     vertexTraversing[vertexB] = true;
                       currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                                    treeEdge, backEdge, crossEdge, forwardEdge, hiddenEdge);
-                      currentState["status"] = "" + vertexB + " hasn't been visited<br>DfsCount = "+Count;
+                      currentState["status"] = "" + vertexB + " "
+                                          + getTranslatedHtml(240, "hasn't been visited") + "<br>DfsCount = "+Count;
                       currentState["lineNo"] = 4;
                       for(var key in Bridgess) {
                           currentState["el"][key]["state"] = EDGE_GREEN;
@@ -575,7 +588,8 @@ var GraphTraversal = function(){
 
                       currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                                    treeEdge, backEdge, crossEdge, forwardEdge, hiddenEdge);
-                      currentState["status"] = "update low["+u+"] from low["+vertexB+"]<br>DfsCount = "+Count;
+                      currentState["status"] = getTranslatedHtml(241, "update") + " low["+u+"] "
+                                              +getTranslatedHtml(242, "from") + " low["+vertexB+"]<br>DfsCount = "+Count;
                       currentState["lineNo"] = 5;
                       for(var key in Bridgess) {
                           currentState["el"][key]["state"] = EDGE_GREEN;
@@ -590,18 +604,25 @@ var GraphTraversal = function(){
 
                       var thisStatus = "";
                       if (low[vertexB] >= num[u] && u!=ROOT) {
-                          thisStatus=thisStatus+"low["+vertexB+"] >= num["+u+"] and "+u+" is not the root, "+u+" is an articulation point.<br>";
+                          thisStatus=thisStatus+"low["+vertexB+"] >= num["+u+"], "+u+" "
+                                      + getTranslatedHtml(243, "is not the root") + " => "+u+" " 
+                                      + getTranslatedHtml(244, "is an articulation point") + ".<br>";
                           articulationPoint[u] = true;
                       } else if (low[vertexB] >= num[u] && u==ROOT) {
-                          thisStatus=thisStatus+"low["+vertexB+"] >= num["+u+"] but "+u+" is the root, no articulation point.<br>";
+                          thisStatus=thisStatus+"low["+vertexB+"] >= num["+u+"], "+u+" "
+                                  + getTranslatedHtml(245, "is the root") + " => " 
+                                  + getTranslatedHtml(246, "no articulation point") + ".<br>";
                       } else 
-                          thisStatus=thisStatus+"low["+vertexB+"] < num["+u+"], no articulation point.<br>";
+                          thisStatus=thisStatus+"low["+vertexB+"] < num["+u+"] => "
+                                      + getTranslatedHtml(247, "no articulation point") + ".<br>";
 
                       if (low[vertexB] > num[u]) {
-                          thisStatus=thisStatus+"low["+vertexB+"] > num["+u+"], "+u+"-"+vertexB+" is a bridge.";
+                          thisStatus=thisStatus+"low["+vertexB+"] > num["+u+"] => "+u+"-"+vertexB+" "
+                                    +getTranslatedHtml(248, "is a bridge") + ".";
                           Bridgess[j] = true;
                       } else 
-                          thisStatus=thisStatus+"low["+vertexB+"] <= num["+u+"], "+u+"-"+vertexB+" is not a bridge.";
+                          thisStatus=thisStatus+"low["+vertexB+"] <= num["+u+"] => "+u+"-"+vertexB+" "
+                                  + getTranslatedHtml(249, "is not a bridge") + ".";
 
                       currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                                    treeEdge, backEdge, crossEdge, forwardEdge, hiddenEdge);
@@ -623,7 +644,10 @@ var GraphTraversal = function(){
                       internalAdjList[u]["extratext"] = ""+num[u]+","+low[u];
                       currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                                    treeEdge, backEdge, crossEdge, forwardEdge, hiddenEdge);
-                      currentState["status"] = "" + vertexB + " is visited, update low["+u+"] from num["+vertexB+"]<br>DfsCount = "+Count;
+                      currentState["status"] = "" + vertexB + " "
+                                      + getTranslatedHtml(250, "is visited") + ", "
+                                      + getTranslatedHtml(251, "update") + " low["+u+"] "
+                                      + getTranslatedHtml(252, "from") + " num["+vertexB+"]<br>DfsCount = "+Count;
                       currentState["lineNo"] = 7;
                       for(var key in Bridgess) {
                           currentState["el"][key]["state"] = EDGE_GREEN;
@@ -638,7 +662,9 @@ var GraphTraversal = function(){
                   } else {
                       currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                                    treeEdge, backEdge, crossEdge, forwardEdge, hiddenEdge);
-                      currentState["status"] = "" + vertexB + " is the parent of "+u+", ignore!<br>DfsCount = "+Count;
+                      currentState["status"] = "" + vertexB + " "
+                                  + getTranslatedHtml(253, "is the parent of") + " " + u + ", "
+                                  + getTranslatedHtml(254, "ignore!") + "<br>DfsCount = "+Count;
                       currentState["lineNo"] = 7;
                       for(var key in Bridgess) {
                           currentState["el"][key]["state"] = EDGE_GREEN;

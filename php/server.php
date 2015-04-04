@@ -1,6 +1,22 @@
 <?php    
     session_start();
     if (!isset($_SESSION["language"])) {
+        // $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        // switch ($lang){
+        //     case "vi":
+        //         $_SESSION["language"] = "Vietnamese";
+        //         break;
+        //     case "id":
+        //         $_SESSION["language"] = "Indonesian";
+        //         break;
+        //     case "":
+        //         $_SESSION["language"] = "Chinese";
+        //         break;        
+        //     default:
+        //         //echo "PAGE EN - Setting Default";
+        //         include("index_en.php");//include EN in all other cases of different lang detection
+        //         break;
+        // }
         $_SESSION["language"] = "English";
     }
 
@@ -12,6 +28,7 @@
                 case "getLanguage": getLanguage(); break;
                 case "saveNewData": newData(); break;
                 case "getData": getData(); break;
+                case "translateData": translateData(); break;
             }
         }
     }
@@ -43,11 +60,10 @@
         $id = $_POST["id"];
         $content = $_POST["content"];
 
-        updateDatabase($tableName, $id, $content);
-
-        if ($tableName == "English") {
+        if ($tableName == "English" && $content != getContentFromDatabase($tableName, $id)) {
             updateOtherLanguages($id, $content);
-        }
+        } 
+        updateDatabase($tableName, $id, $content);
     }
 
     function updateOtherLanguages($id, $content) {
@@ -57,18 +73,52 @@
             $url = 'https://www.googleapis.com/language/translate/v2?key='.$apiKey.'&q='.rawurlencode($content).'&source=en&target='.$code;
 
             // for php 5.3
-            $json = file_get_contents($url);
-            $responseDecoded = json_decode($json,true);
+            // $json = file_get_contents($url);
+            // $responseDecoded = json_decode($json,true);
 
             //  this is for php > 5.3
-            // $handle = curl_init($url);
-            // curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-            // $response = curl_exec($handle);                 
-            // $responseDecoded = json_decode($response, true);
-            // curl_close($handle);
+            $handle = curl_init($url);
+            curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+            $response = curl_exec($handle);                 
+            $responseDecoded = json_decode($response, true);
+            curl_close($handle);
 
             $newText = $responseDecoded['data']['translations'][0]['translatedText'];
             updateDatabase($tableName, $id, $newText);
+        }
+    }
+
+    function translateData() {
+        $id = $_POST["id"];
+        $content = $_POST["text"];
+
+        $text = getContentFromDatabase("English", $id);
+        if (is_null($text) || $content != $text) {
+            updateOtherLanguages($id, $content);
+            updateDatabase("English", $id, $content);
+        }
+
+        $tableName = $_SESSION["language"];
+        echo getContentFromDatabase($tableName, $id);
+    }
+
+    function getData() {
+        $tableName = $_SESSION["language"];
+        $id = $_POST["id"];
+
+        echo getContentFromDatabase($tableName, $id);
+    }
+
+    function getContentFromDatabase($tableName, $id) {
+        global $db;
+        setupDatabase();
+
+        $query = "Select content from ".$tableName." where id=".$id;
+        $row = mysqli_fetch_row($db -> query($query));
+        if (is_null($row)) {
+            return null;
+        } else {
+            return $row[0];
         }
     }
 
@@ -81,17 +131,5 @@
             $query = "update ".$tableName." set content='".$content."' where id=".$id;
             $db -> query($query);
         }
-    }
-
-    function getData() {
-        global $db;
-        setupDatabase();
-
-        $tableName = $_SESSION["language"];
-        $id = $_POST["id"];
-
-        $query = "Select content from ".$tableName." where id=".$id;
-        $row = mysqli_fetch_row($db -> query($query));
-        echo $row[0];
     }
 ?>

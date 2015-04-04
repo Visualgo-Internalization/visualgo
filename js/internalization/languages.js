@@ -13,6 +13,23 @@ $(document).ready(function() {
     });
 })
 
+function getLanguage() {
+    var currentLanguage;
+
+    $.ajax({
+        type: "POST",
+        url: "php/server.php",
+        data: {
+            action: "getLanguage",
+        },
+        success: function(data) {
+            currentLanguage = data;
+        }, 
+        async: false
+    });
+
+    return currentLanguage;
+}
 
 function changeLanguage(language) {
     $.ajax({
@@ -48,4 +65,31 @@ function updateData(index) {
             $('.'+index).html(data);
         }
     });
+}
+
+function updateJSData(code, id, text) {
+    $(code).html(getTranslatedHtml(id, text));
+}
+
+function getTranslatedHtml(id, text) {
+    var htmlText = translateData(text, id);
+    return "<span class='"+id+"'>"+htmlText+"</span>";
+}
+
+function translateData(text, index) {
+    var receivedData;
+    $.ajax({
+        type: "POST",
+        url: "php/server.php",
+        data: {
+            action: "translateData",
+            text: text,
+            id: index
+        },
+        success: function(data) {
+            receivedData = data;
+        },
+        async: false
+    })
+    return receivedData;
 }
