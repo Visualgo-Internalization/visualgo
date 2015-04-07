@@ -11,7 +11,8 @@ $(document).ready(function() {
                         content: $('.'+index).text()
                     },
                     success: function(data) {
-                    }
+                    },
+                    async: false
                 });
             }
         }

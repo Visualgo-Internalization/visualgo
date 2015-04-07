@@ -1,4 +1,11 @@
+var content = [];
+
 $(document).ready(function() {
+    //detect the language.
+    var language = getLanguage();
+    if (language != 'English')
+        changeLanguage(language);
+
     $('#English').click(function() {
         changeLanguage("English");
     });
@@ -40,8 +47,10 @@ function changeLanguage(language) {
             language: language
         },
         success: function(data) {
+            content = JSON.parse(data);
             updateWholePage();
-        }
+        },
+        async: false
     });
 }
 
@@ -54,17 +63,11 @@ function updateWholePage() {
 }
 
 function updateData(index) {
-    $.ajax({
-        type: "POST",
-        url: "php/server.php",
-        data: {
-            action: "getData",
-            id: index
-        },
-        success: function(data){
-            $('.'+index).html(data);
-        }
-    });
+    if (typeof content[index] !== 'undefined') {
+        $('.'+index).html(content[index]);
+    } else {
+        $('.'+index).html(translateData(getEnglishTerm(index), index));
+    }
 }
 
 function updateJSData(code, id, text) {
@@ -72,8 +75,30 @@ function updateJSData(code, id, text) {
 }
 
 function getTranslatedHtml(id, text) {
-    var htmlText = translateData(text, id);
+    var htmlText;
+    if (typeof content[id] !== 'undefined') {
+        htmlText = content[id];
+    } else {
+        htmlText = translateData(text, id);
+    }
     return "<span class='"+id+"'>"+htmlText+"</span>";
+}
+
+function getEnglishTerm(index) {
+    var receivedData;
+    $.ajax({
+        type: "POST",
+        url: "php/server.php",
+        data: {
+            action: "getEnglishTerm",
+            id: index
+        },
+        success: function(data) {
+            receivedData = data;
+        },
+        async: false
+    })
+    return receivedData;
 }
 
 function translateData(text, index) {

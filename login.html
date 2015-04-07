@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Visualgo Login</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div id="login-form">
+            <h3>Login</h3>
+            <fieldset>
+                <form action="php/admin-contributor.php">
+                    <input id="username" type="text" required placeholder="Username">
+                    <input id="password" type="password" required placeholder="Password">
+                    <input type="submit" value="Login">
+                </form>
+            </fieldset>
+        </div> 
+    </div>
+
+    <script type='text/javascript'>
+        $("#login-form").submit(function(event) {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "php/admin-contributor.php",
+                data: {
+                    action: "login",
+                    id: $("#username").val(),
+                    pw: $("#password").val()
+                },
+                success: function(data) {  
+                    if (data == "admin") {
+                        window.location = 'admin.html';
+                    } else if (data == "contributor") {
+                        window.location = 'contributor.html';
+                    } else {
+                        alert("Wrong username/password");
+                    }
+                },
+                async: false
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,22 +1,6 @@
 <?php    
     session_start();
     if (!isset($_SESSION["language"])) {
-        // $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-        // switch ($lang){
-        //     case "vi":
-        //         $_SESSION["language"] = "Vietnamese";
-        //         break;
-        //     case "id":
-        //         $_SESSION["language"] = "Indonesian";
-        //         break;
-        //     case "":
-        //         $_SESSION["language"] = "Chinese";
-        //         break;        
-        //     default:
-        //         //echo "PAGE EN - Setting Default";
-        //         include("index_en.php");//include EN in all other cases of different lang detection
-        //         break;
-        // }
         $_SESSION["language"] = "English";
     }
 
@@ -26,9 +10,9 @@
             switch($action) { //Switch case for value of action
                 case "changeLanguage": changeLanguage(); break;
                 case "getLanguage": getLanguage(); break;
-                case "saveNewData": newData(); break;
-                case "getData": getData(); break;
+                case "getEnglishTerm": getEnglishTerm(); break;
                 case "translateData": translateData(); break;
+                case "saveNewData": newData(); break;
             }
         }
     }
@@ -49,10 +33,30 @@
 
     function changeLanguage() {
         $_SESSION["language"] = $_POST["language"];
+
+        $result = array();
+        $table = getTableFromDatabase($_SESSION["language"]);
+        while ($row = mysqli_fetch_row($table)) {
+            $result[$row[0]] = $row[1];
+        }
+        echo json_encode($result);
+    }
+
+    function getTableFromDatabase($tableName) {
+        global $db;
+        setupDatabase();
+
+        $query = "Select * from ".$tableName;
+        return $db -> query($query);
     }
 
     function getLanguage() {
         echo $_SESSION["language"];
+    }
+
+    function getEnglishTerm() {
+        $id = $_POST["id"];
+        return getContentFromDatabase("English", $id);
     }
 
     function newData() {
@@ -73,15 +77,15 @@
             $url = 'https://www.googleapis.com/language/translate/v2?key='.$apiKey.'&q='.rawurlencode($content).'&source=en&target='.$code;
 
             // for php 5.3
-            // $json = file_get_contents($url);
-            // $responseDecoded = json_decode($json,true);
+            $json = file_get_contents($url);
+            $responseDecoded = json_decode($json,true);
 
-            //  this is for php > 5.3
-            $handle = curl_init($url);
-            curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-            $response = curl_exec($handle);                 
-            $responseDecoded = json_decode($response, true);
-            curl_close($handle);
+            // this is for php > 5.3
+            // $handle = curl_init($url);
+            // curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+            // $response = curl_exec($handle);                 
+            // $responseDecoded = json_decode($response, true);
+            // curl_close($handle);
 
             $newText = $responseDecoded['data']['translations'][0]['translatedText'];
             updateDatabase($tableName, $id, $newText);
@@ -99,13 +103,6 @@
         }
 
         $tableName = $_SESSION["language"];
-        echo getContentFromDatabase($tableName, $id);
-    }
-
-    function getData() {
-        $tableName = $_SESSION["language"];
-        $id = $_POST["id"];
-
         echo getContentFromDatabase($tableName, $id);
     }
 
