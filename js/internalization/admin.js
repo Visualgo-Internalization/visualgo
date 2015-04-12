@@ -127,6 +127,9 @@ function showTable(language) {
                 }
             }
 
+            // head.push("Approve");
+            // head.push("Reject");
+
             generateTable(language, head, arr);
 
         },  
@@ -157,9 +160,9 @@ function generateTable(language, head, arr) {
 
     for(var i = 0; i < head.length; i++) {
         if (i == 0) {
-            content += "<th class='col-md-1'>" + head[i] + "</th>";  
+            content += "<th class='col-md-1' align='middle' style='text-align: center'>" + head[i] + "</th>";  
         } else {
-            content += "<th>" + head[i] + "</th>";   
+            content += "<th align='middle' style='text-align: center'>" + head[i] + "</th>";   
         }
     }
     content += "</tr></thead><tbody>"; 
@@ -178,14 +181,23 @@ function generateTable(language, head, arr) {
             }
 
             content += "<tr>";
-            content += "<td>" + j + "</td>";
+            content += "<td style='text-align: center'>" + j + "</td>";
             for(var i = 1; i < arr.length; i++) {
                 if (typeof arr[i][j] !== 'undefined') {
-                    content += "<td>" + arr[i][j] + "</td>";
+                    content += "<td style='text-align: center'>" + arr[i][j] + "<br>";
+                    if (i > 1) {
+                        content += "<img src='img/approve.png' width='20' height='20' align='middle'>&nbsp&nbsp&nbsp";
+                        content += "<img src='img/reject.png' width='20' height='20' align='middle'>";
+                        content += "</td>";
+                    }
+                    else {
+                        content += "</td>";
+                    }
                 } else {
                     content += "<td></td>";
                 }
             }
+            // content += "<td>" + "<button type='submit' class='btn btn-primary'>Approve</button>" + "</td>";
             content += "</tr>";
         }
     }   
