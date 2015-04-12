@@ -30,6 +30,7 @@
                 case "getAllTableOfThisLanguage": getTableOfLanguage(); break;
                 case "getContributors": getContributors(); break;
                 case "newContributor": newContributor(); break;
+                case "approveContribution": approveContribution(); break;
             }
         }
     }
@@ -238,6 +239,26 @@
         if (!($db -> query($query))) {
             $query = "update ".$tableName." set content='".$content."' where id=".$id;
             $db -> query($query);
+        }
+    }
+
+    function approveContribution() {
+        global $db;
+        setupDatabase();
+        
+        if (isAdmin() != "") {
+            $tableName = $_POST["language"];
+            $id = $_POST["id"];
+            $contributor = $_POST["contributor"];
+
+            $query = "Select content from ".$tableName."_".$contributor." where id=".$id;
+            $row = mysqli_fetch_row($db -> query($query));
+            $content = $row[0];
+
+            $query = "update ".$tableName." set content='".$content."' where id=".$id;
+            $db -> query($query);
+
+
         }
     }
 ?>
