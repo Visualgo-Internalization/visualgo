@@ -62,6 +62,37 @@ $(document).ready(function() {
         }
     });
 
+
+
+    $(document).on('click', 'img.approve', function() {
+                            
+                            alert($(this).attr('class'));
+                            var classList =$(this).attr('class').split(/\s+/);
+                            alert(classList[1] + " " + classList[2] + " " + classList[3]);
+
+                            $.ajax({
+                                type: "POST",
+                                url: "php/admin-contributor.php",
+                                data: {
+                                    action: "approveContribution",
+                                    language: classList[1],
+                                    contributor: classList[2],
+                                    id: parseInt(classList[3])
+                                    
+
+                                },
+                                success: function(data) {
+                                    showTable(classList[1]);
+                                    alert("success");
+                                },
+                                async: false
+                            });
+
+
+                        });
+
+
+
     window.onbeforeunload = function(e) {
         updateContribution();
     };
@@ -186,8 +217,8 @@ function generateTable(language, head, arr) {
                 if (typeof arr[i][j] !== 'undefined') {
                     content += "<td style='text-align: center'>" + arr[i][j] + "<br>";
                     if (i > 1) {
-                        content += "<img src='img/approve.png' width='20' height='20' align='middle'>&nbsp&nbsp&nbsp";
-                        content += "<img src='img/reject.png' width='20' height='20' align='middle'>";
+                        content += "<img class='approve " + language + " " + head[i] + " " + j + "' src='img/approve.png' width='20' height='20' align='middle'>&nbsp&nbsp&nbsp";
+                        content += "<img class='reject " + language + " " + head[i] + " " + j + "' src='img/reject.png' width='20' height='20' align='middle'>";
                         content += "</td>";
                     }
                     else {
