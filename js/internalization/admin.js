@@ -66,9 +66,9 @@ $(document).ready(function() {
 
     $(document).on('click', 'img.approve', function() {
                             
-                            alert($(this).attr('class'));
+                            
                             var classList =$(this).attr('class').split(/\s+/);
-                            alert(classList[1] + " " + classList[2] + " " + classList[3]);
+                            
 
                             $.ajax({
                                 type: "POST",
@@ -83,7 +83,33 @@ $(document).ready(function() {
                                 },
                                 success: function(data) {
                                     showTable(classList[1]);
-                                    alert("success");
+                                },
+                                async: false
+                            });
+
+
+                        });
+
+
+    $(document).on('click', 'img.reject', function() {
+                            
+                            
+                            var classList =$(this).attr('class').split(/\s+/);
+                            
+
+                            $.ajax({
+                                type: "POST",
+                                url: "php/admin-contributor.php",
+                                data: {
+                                    action: "rejectContribution",
+                                    language: classList[1],
+                                    contributor: classList[2],
+                                    id: parseInt(classList[3])
+                                    
+
+                                },
+                                success: function(data) {
+                                    showTable(classList[1]);
                                 },
                                 async: false
                             });
