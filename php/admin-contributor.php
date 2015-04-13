@@ -31,8 +31,6 @@
                 case "getContributors": getContributors(); break;
                 case "newContributor": newContributor(); break;
                 case "approveContribution": approveContribution(); break;
-                case "rejectContribution": rejectContribution(); break;
-                
             }
         }
     }
@@ -247,8 +245,9 @@
     function approveContribution() {
         global $db;
         setupDatabase();
-
-        $tableName = $_POST["language"];
+        
+        if (isAdmin() != "") {
+            $tableName = $_POST["language"];
             $id = $_POST["id"];
             $contributor = $_POST["contributor"];
 
@@ -259,46 +258,7 @@
             $query = "update ".$tableName." set content='".$content."' where id=".$id;
             $db -> query($query);
 
-            $query = "delete from ".$tableName."_".$contributor." where id=".$id;
-            $db -> query($query);
 
-        
-        // if (isAdmin() != "") {
-        //     $tableName = $_POST["language"];
-        //     $id = $_POST["id"];
-        //     $contributor = $_POST["contributor"];
-
-        //     $query = "Select content from ".$tableName."_".$contributor." where id=".$id;
-        //     $row = mysqli_fetch_row($db -> query($query));
-        //     $content = $row[0];
-
-        //     $query = "update ".$tableName." set content='".$content."' where id=".$id;
-        //     $db -> query($query);
-
-
-        // }
-    }
-
-    function rejectContribution() {
-        global $db;
-        setupDatabase();
-
-        $tableName = $_POST["language"];
-            $id = $_POST["id"];
-            $contributor = $_POST["contributor"];
-
-            $query = "delete from ".$tableName."_".$contributor." where id=".$id;
-            $db -> query($query);
-        
-        // if (isAdmin() != "") {
-        //     $tableName = $_POST["language"];
-        //     $id = $_POST["id"];
-        //     $contributor = $_POST["contributor"];
-
-        //     $query = "delete from ".$tableName."_".$contributor." where id=".$id;
-        //     $db -> query($query);
-
-
-        // }
+        }
     }
 ?>
