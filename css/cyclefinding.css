@@ -1,0 +1,107 @@
+@charset "utf-8";
+
+#createuserdefined-input input {
+  width: 15px;
+  padding: 8px 8px 7px; 
+  margin-right: 12px;
+  float:left;
+}
+
+#createuserdefined-go p { 
+  padding: 8px 8px 7px; 
+  float:right;
+}
+
+.function {
+  font-style: italic;
+  font-size: 25px;
+  margin-left: 100px;
+  margin-top: 200px;
+}
+
+.create { bottom: 60px; }
+	#create-random { padding: 11px 8px 8px; bottom: 60px; } 
+	#create-input input {
+		width: 25px;
+		padding: 10px 8px 5px;
+	}
+	#create-input-arr input {
+		width: 100px;
+		padding: 10px 8px 5px;
+	}
+	#create-custom { bottom: 96px; padding: 11px 8px 8px; /* 7px 30px 8px; */ }
+
+/*all tutorial stuff here*/
+#cyclefinding-tutorial-1 {
+  top: 60px;
+  left: 60px;
+  width: 330px;
+}
+#cyclefinding-tutorial-2 {
+  bottom: 125px;
+  left: 60px;
+  width: 610px;
+}
+  #cyclefinding-tutorial-2:before {
+    top: 100%;
+    left: 20%;
+    border-top-color: black;
+    margin-left: -10px;
+  }
+#cyclefinding-tutorial-3 {
+  top: 420px;
+  left: 50%;
+  width: 330px;
+  margin-left: -150px;
+}
+  #cyclefinding-tutorial-3:before {
+    bottom: 100%;
+    left: 50%;
+    border-bottom-color: black;
+    margin-left: -10px;
+  }
+#cyclefinding-tutorial-4 {
+  bottom: 335px;
+  right: 150px;
+  width: 200px;
+}
+  #cyclefinding-tutorial-4:before {
+    top: 100%;
+    left: 20%;
+    border-top-color: black;
+    margin-left: -10px;
+  }
+#cyclefinding-tutorial-5 {
+  bottom: 275px;
+  right: 170px;
+  width: 180px;
+}
+  #cyclefinding-tutorial-5:before {
+    top: 100%;
+    left: 20%;
+    border-top-color: black;
+    margin-left: -10px;
+  }
+#cyclefinding-tutorial-6 {
+  bottom: 70px;
+  left: 50%;
+  width: 260px;
+  margin-left: -120px;
+}
+  #cyclefinding-tutorial-6:before {
+    top: 100%;
+    left: 50%;
+    border-top-color: black;
+    margin-left: -10px;
+  }
+#cyclefinding-tutorial-7 {
+  top: 70px;
+  right: 60px;
+  width: 150px;
+}
+  #cyclefinding-tutorial-7:before {
+    bottom: 100%;
+    left: 50%;
+    border-bottom-color: black;
+    margin-left: -10px;
+  }

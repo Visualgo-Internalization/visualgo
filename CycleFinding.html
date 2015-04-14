@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<title>VisuAlgo - Cycle-Finding</title>
+<link rel="icon" type="image/png" href="img/favicon.png" />
+
+<!--css-->
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/viz.css">
+
+<link rel="stylesheet" href="css/cyclefinding.css">
+
+<!--js-->
+<script src="js/external/jquery-1.10.2.js"></script>
+<script src="js/external/jquery-ui.js"></script>
+<script src="js/external/d3.v3.js"></script>
+<script src="js/viz.js"></script>
+<script src="js/common.js"></script>
+<script src="js/actions/cyclefinding_actions.js"></script>
+<!--script src="//connect.facebook.net/en_US/all.js"></script-->
+<!-- more scripts are below-->
+
+<!--fonts-->
+<link href="fonts/silkscreen/stylesheet.css" rel='stylesheet' type='text/css'>
+<!--<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>-->
+<link href='css/local.css' rel='stylesheet' type='text/css'>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1566631-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<div id="top-bar">
+  <a id="home" href="http://www.comp.nus.edu.sg/~stevenha" target="_top"><span class="colour">7</span></a>&nbsp;&nbsp;&nbsp;
+  <a id="home" href="http://visualgo.net" target="_top">Visu<span class="colour">Algo</span></a>&nbsp;&nbsp;&nbsp;
+  <span id="title">
+    <a id="title-Floyd">Floyd's Cycle-Finding</a>
+  </span>
+  <div id="mode-menu">
+    <div id="mode-button">Exploration Mode<img src="img/arrow_white.png"/></div>
+    <div id="other-modes"><a href="#">Tutorial Mode</a></div>
+  </div>
+</div>
+	
+<div id="viz"></div>
+    
+<div id="current-action" class="panel" style = "display: block;">
+  <p></p>
+</div>
+  
+<div id="actions" class="panel">
+  <p id="create">Create</p>
+</div>
+
+<div id="actions-hide" class="panel-hide"><img src="img/arrow_white_right.png" title="show/hide actions panel"/></div>
+
+<div id="actions-extras">
+  <!--put all the extra action pullouts (input) and error messages here-->
+  <div class="create action-menu-pullout">
+    <div id="create-random" class="execAction new-menu-option coloured-menu-option" onClick=random()><p>Random</p></div>
+    <div id="create-custom" class="execAction new-menu-option coloured-menu-option"> <!-- onclick=createModelingOpen("createuserdefined")> -->
+      <!--<div class="new-menu-option">-->
+        Custom, f(x) = (<input type="text" size = "3" id="v-create-arr-square" title="Enter the coefficient of x^2" autocomplete="off" placeholder="A" value="3">*x<sup>2</sup> + 
+        <input type="text" size = "3" id="v-create-arr-x" title="Enter the coefficient of x" autocomplete="off" placeholder="B" value="7">*x + 
+        <input type="text" size = "3" id="v-create-arr-constant" title="Enter the constant" autocomplete="off" placeholder="C" value="5">) % 
+        <input type="text" size = "3" id="v-create-arr-modulo" title="Enter the modulo" autocomplete="off" placeholder="M" value="97">, x<sub>0</sub> = 
+        <input type="text" size = "3" id="v-create-arr-x0" title="Enter the starting value" autocomplete="off" placeholder="x0" value="62">
+        <span id="createuserdefined-go" class="execAction coloured-menu-option" onClick=userDefined()>GO</span>
+      <!--</div>-->
+    </div>
+    <div id="create-err" class="err"></div>
+  </div>
+</div>
+
+<div id="status" class="panel"><p></p></div>
+<div id="status-hide" class="panel-hide"><img src="img/arrow_white_right.png" title="show/hide status panel"/></div>
+
+<div id="codetrace" class="panel">
+  <!--can add class "highlighed" to hightlight one line-->
+  <p id="code1" style="padding-top: 10px;"></p>
+  <p id="code2"></p>
+  <p id="code3"></p>
+  <p id="code4"></p>
+  <p id="code5"></p>
+  <p id="code6"></p>
+  <p id="code7" style="padding-bottom: 10px;"></p>
+</div>
+<div id="codetrace-hide" class="panel-hide"><img src="img/arrow_white_right.png" title="show/hide codetrace panel"/></div>
+
+<div id="left-bar"></div>
+<div id="right-bar"></div>
+<!-- Bottom bar and overlay popups -->
+<div id="bottom-bar">
+  <a id="trigger-about">About</a>
+  <a id="trigger-team">Team</a>
+  <a id="trigger-terms">Terms of use</a>
+</div>
+
+<div id="media-controls">
+  <div id="speed-control">slow<div id="speed-input"></div>fast</div>
+  <span id="go-to-beginning" class="media-control-button" title="go to beginning" onclick=goToBeginning()><img src="img/goToBeginning.png" alt="go to beginning" /></span>
+  <span id="previous" class="media-control-button" title="step backward" onclick=stepBackward()><img src="img/prevFrame.png" alt="previous frame" /></span>
+  <span id="pause" class="media-control-button" title="pause" onclick=pause()><img src="img/pause.png" alt="pause" /></span>
+  <span id="play" class="media-control-button" title="play" onclick=play()><img src="img/play.png" alt="play" /></span>
+  <span id="next" class="media-control-button" title="step forward" onclick=stepForward()><img src="img/nextFrame.png" alt="next frame" /></span>
+  <span id="go-to-end" class="media-control-button" title="go to end" onclick=goToEnd()><img src="img/goToEnd.png" alt="go to end"/></span>
+  <div id="progress-bar" class="media-control-button"></div>
+</div>
+
+<div id="dark-overlay"></div>
+<div id="about" class="overlays"></div>
+<div id="team" class="overlays"></div>
+<div id="termsofuse" class="overlays"></div>
+
+<div id="cyclefinding-tutorial-1" class="tutorial-dialog">
+  Given a function (restricted to <b>f(x) = (A*x<sup>2</sup> + B*x + C) % M</b> for this visualization) and an initial value <b>x<sub>0</sub></b>,
+  the cycle-finding problem is defined as the problem of finding the starting index <b>mu (&mu;)</b> of the cycle and the cycle length <b>lambda (&lambda;)</b>
+  of a sequence of iterated function values:<br><b>{x<sub>0</sub>, x<sub>1</sub> = f(x<sub>0</sub>), x<sub>2</sub> = f(x<sub>1</sub>), ..., x<sub>i</sub> = f(x<sub>i-1</sub>), ...}</b>.<br>
+  Floyd's cycle-finding is one algorithm that can solve this problem efficiently in both time and space complexities.
+  <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
+</div>
+
+<div id="cyclefinding-tutorial-2" class="tutorial-dialog">
+  You can define custom function <b>f(x) = (A*x<sup>2</sup> + B*x + C) % M</b> here.<br>
+  <ol>
+    <li>Random: The function will be <b>f(x) = (x<sup>2</sup> - 1) % M</b> and only <b>M</b> and the <b>x<sub>0</sub></b> are randomly generated.</li>
+    <li>Custom: You can specify the coefficients <b>A</b>, <b>B</b>, <b>C</b> of <b>f(x)</b> (ranging from -999 to 999), the modulo value <b>M</b> (ranging from 10 to 1000) and the initial value
+        <b>x<sub>0</sub></b> (ranging from 0 to <b>M-1</b>).</li>
+  </ol>
+  <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
+</div>
+
+<div id="cyclefinding-tutorial-3" class="tutorial-dialog">
+  This is the visualisation of Floyd's cycle-finding algorithm.<br>
+  The shape of <b>rho (&rho;)</b> of the sequence of iterated function values defined by <b>f(x)</b> and <b>x<sub>0</sub></b> nicely visualizes <b>&mu;</b> and <b>&lambda;</b>.<br>
+  VisuAlgo uses <font color="green">green vertices to represent the tortoise (t)</font> and <font color="orange">orange vertices to represent the hare (h)</font>.<br>
+  <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
+</div>
+
+<div id="cyclefinding-tutorial-4" class="tutorial-dialog">
+  As the action is being carried out, each step will be described in the status panel.
+  <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
+</div>
+
+<div id="cyclefinding-tutorial-5" class="tutorial-dialog">
+  You can also follow the pseudocode highlights to trace the algorithm.
+  <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
+</div>
+
+<div id="cyclefinding-tutorial-6" class="tutorial-dialog">
+  Control the animation with the player controls! Keyboard shortcuts are:<br/>
+  <div style="margin-top: 8px;"><strong>Spacebar:</strong> play/pause/replay</div>
+  <strong>Left/right arrows:</strong> step backward/step forward<br/>
+  <strong>-/+:</strong> decrease/increase speed<br/>
+  <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
+</div>
+
+<div id="cyclefinding-tutorial-7" class="tutorial-dialog">
+  Return to "Exploration Mode" to start exploring!
+</div>
+
+<script src="js/graph_library/constant.js"></script>
+<script src="js/graph_library/properties.js"></script>
+<script src="js/graph_library/helperObjects.js"></script>
+<script src="js/graph_library/misc.js"></script>
+<script src="js/graph_library/Widget.js"></script>
+<script src="js/graph_library/GraphWidget.js"></script>
+<script src="js/graph_library/GraphVertexWidget.js"></script>
+<script src="js/graph_library/GraphEdgeWidget.js"></script>
+<script src="js/widgets/CycleFindingWidget.js"></script>
+
+<script type="text/javascript">
+  //start by showing actions panel
+  $('#play').hide();
+
+  var floydWidget = new Floyd();
+  var gw = floydWidget.getGraphWidget();
+
+  function random() {
+    if (isPlaying) { stop(); }
+    setTimeout(function() {
+      if ((mode == "exploration") && floydWidget.generateRandom()) {
+        $('#current-action p').html("f(x) = (x<sup>2</sup> - 1) % " + floydWidget.getMod() + ", x<sub>0</sub> = " + floydWidget.getStart());
+        $('#progress-bar').slider( "option", "max", gw.getTotalIteration()-1); //trigerrightPanel and not 0 shoudl b e getTotalIteration-1.
+        triggerRightPanels();
+        closeCreate();
+        isPlaying = true;
+      }
+	}, 500)
+    hideStatusPanel();
+    hideCodetracePanel();
+  }
+
+  function userDefined() {
+    if (isPlaying) { stop(); }
+    setTimeout(function() {
+      var A = $('#v-create-arr-square').val();
+      var B = $('#v-create-arr-x').val();
+      var C = $('#v-create-arr-constant').val();
+      var mod = $('#v-create-arr-modulo').val();
+      var x0 = $('#v-create-arr-x0').val();
+
+      var input = [A, B, C, mod, x0];
+      if ((mode == "exploration") && floydWidget.generateUserDefined(input)) {
+        var fx = "f(x) = (";
+        if (A != 0) { // has to print ?x^2
+               if (A ==  1) fx += "x<sup>2</sup>";
+          else if (A == -1) fx += "-x<sup>2</sup>";
+          else              fx += A + "x<sup>2</sup>";
+        }
+        if (B != 0) { // has to print ?x
+               if (B ==  1) fx += "+ x";
+          else if (B == -1) fx += "- x";
+          else if (B >   1) fx += "+ " + B + "x";
+          else              fx += "- " + (-B) + "x";
+        }
+        // has to print constant
+        if (C >= 0) fx += " + " + C;
+        else        fx += " - " + (-C);
+        
+        $('#current-action p').html(fx + ") % " + mod + ", x<sub>0</sub> = " + x0);
+        $('#progress-bar').slider( "option", "max", gw.getTotalIteration()-1);
+        triggerRightPanels();
+        closeCreate();
+        isPlaying = true;
+      }
+    }, 500)
+    hideStatusPanel();
+    hideCodetracePanel();
+  }
+  
+  var isPaused = false;
+  function isAtEnd() {
+    return (gw.getCurrentIteration()==(gw.getTotalIteration()-1));
+  }
+	
+	function pause() {
+		if(isPlaying) {
+			isPaused = true;
+			gw.pause();
+			$('#play').show();
+			$('#pause').hide();
+		}
+	}
+
+	function play() {
+		if(isPlaying) {
+			isPaused = false;
+			$('#pause').show();
+			$('#play').hide();
+			if(isAtEnd()) {
+				gw.replay();
+			} else {
+				gw.play();
+			}
+		}
+	}
+	function stepForward() {
+		if(isPlaying) {
+			pause();
+			gw.forceNext(250);
+		}
+	}
+	function stepBackward() {
+		if(isPlaying) {
+			pause();
+			gw.forcePrevious(250);	
+		}
+	}
+	function goToBeginning() {
+		if(isPlaying) {
+			gw.jumpToIteration(0,0);
+			pause();
+		}
+	}
+	function goToEnd() {
+		if(isPlaying) {
+			gw.jumpToIteration(gw.getTotalIteration()-1,0);
+			pause();
+		}
+	}
+	function stop() {
+		gw.stop();
+		isPaused = false;
+		isPlaying = false;
+		$('#pause').show();
+		$('#play').hide();
+		$('#current-action').hide();
+	}
+
+
+/*
+	function createModelingOpen(modelingType) {
+    	// $(".create").css("bottom","114px");
+   	 	if (modelingType != "createfixedsize") $('#createfixedsize-input').fadeOut('fast');
+    	if (modelingType != "createuserdefined")   $('#createuserdefined-input').fadeOut('fast');
+    	$('#' + modelingType + '-input').fadeIn('fast');
+    }
+*/
+
+  //shortcut keys for playback controls
+  $(document).keydown(function(event) {
+		if(event.which == 32) { //spacebar
+			if(isPaused) { play(); } else { pause(); }
+		} else if(event.which == 37) { //left arrow
+			stepBackward();
+		} else if(event.which == 39) { //right arrow
+			stepForward();
+		} else if(event.which == 35) { //end
+			stop();
+		} else if (event.which == 189) { //minus
+			var d = (2200-gw.getAnimationDuration())-100;
+			if(d > 0) {
+				$("#speed-input").slider("value", d);
+			} else {
+				$("#speed-input").slider("value", 0);
+			}
+		} else if (event.which == 187) { //plus
+			var d = (2200-gw.getAnimationDuration())+100;
+			if(d <= 2000) {
+				$("#speed-input").slider("value", d);
+			} else {
+				$("#speed-input").slider("value", 2000);
+			}
+		}
+	});
+
+
+  userDefined(); // load this immediately upon start?
+  setTimeout(function() {
+    goToBeginning(); // pause(); // then pause
+  }, 750);
+
+  //sliders
+  $("#speed-input").slider({
+    min: 200,
+    max: 2000,
+    value: 1700,
+    change: function(event, ui) {
+      gw.setAnimationDuration(2200-ui.value);
+    }
+  });
+  $("#progress-bar").slider({
+    range: "min",
+    min: 0,
+    value: 0,
+    slide: function(event, ui) {
+      gw.pause();
+      gw.jumpToIteration(ui.value, 0);
+    },
+    stop: function(event, ui) {
+      if (!isPaused) { setTimeout( function(){ gw.play(); }, 500) }
+    }
+  });
+</script>
+
+</body>
+</html>
