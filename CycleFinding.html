@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <head>
 
@@ -22,6 +21,9 @@
 <script src="js/common.js"></script>
 <script src="js/actions/cyclefinding_actions.js"></script>
 <!--script src="//connect.facebook.net/en_US/all.js"></script-->
+
+<script src="js/internalization/admin_action.js"></script>
+<script src="js/internalization/languages.js"></script>
 <!-- more scripts are below-->
 
 <!--fonts-->
@@ -45,14 +47,49 @@
   <a id="home" href="http://www.comp.nus.edu.sg/~stevenha" target="_top"><span class="colour">7</span></a>&nbsp;&nbsp;&nbsp;
   <a id="home" href="http://visualgo.net" target="_top">Visu<span class="colour">Algo</span></a>&nbsp;&nbsp;&nbsp;
   <span id="title">
-    <a id="title-Floyd">Floyd's Cycle-Finding</a>
+    <a class="selected-viz 1100">Floyd's Cycle-Finding</a>
   </span>
+
+  <div id="admin-menu">
+    <div id="admin-button">
+      Admin (testing)<img src="img/arrow_white.png" alt="Home"/>
+    </div>
+
+    <div id="admin-options">
+      <div id="admin-save">
+        <p>Save to database</p>
+      </div>
+    </div>
+  </div>
+
   <div id="mode-menu">
     <div id="mode-button">Exploration Mode<img src="img/arrow_white.png"/></div>
     <div id="other-modes"><a href="#">Tutorial Mode</a></div>
   </div>
+
+    <div id="language-menu">
+      <div id="language-button">
+        <p class="1103">Language</p>
+        <img src="img/arrow_white.png" alt="Home"/>
+      </div>
+
+      <div id="language-options">
+        <div id="English" class="languages">
+          <p>English</p>
+        </div>
+        <div id="Vietnamese">
+          <p>Vietnamese</p>
+        </div>
+        <div id="Chinese" class="languages">
+          <p>Chinese</p>
+        </div>
+        <div id="Indonesian" class="languages">
+          <p>Indonesian</p>
+        </div>
+      </div>
+    </div>
 </div>
-	
+
 <div id="viz"></div>
     
 <div id="current-action" class="panel" style = "display: block;">
@@ -60,7 +97,7 @@
 </div>
   
 <div id="actions" class="panel">
-  <p id="create">Create</p>
+  <p id="create" class="1104">Create</p>
 </div>
 
 <div id="actions-hide" class="panel-hide"><img src="img/arrow_white_right.png" title="show/hide actions panel"/></div>
@@ -68,7 +105,7 @@
 <div id="actions-extras">
   <!--put all the extra action pullouts (input) and error messages here-->
   <div class="create action-menu-pullout">
-    <div id="create-random" class="execAction new-menu-option coloured-menu-option" onClick=random()><p>Random</p></div>
+    <div id="create-random" class="execAction new-menu-option coloured-menu-option" onClick=random()><p class="1105">Random</p></div>
     <div id="create-custom" class="execAction new-menu-option coloured-menu-option"> <!-- onclick=createModelingOpen("createuserdefined")> -->
       <!--<div class="new-menu-option">-->
         Custom, f(x) = (<input type="text" size = "3" id="v-create-arr-square" title="Enter the coefficient of x^2" autocomplete="off" placeholder="A" value="3">*x<sup>2</sup> + 
@@ -76,7 +113,7 @@
         <input type="text" size = "3" id="v-create-arr-constant" title="Enter the constant" autocomplete="off" placeholder="C" value="5">) % 
         <input type="text" size = "3" id="v-create-arr-modulo" title="Enter the modulo" autocomplete="off" placeholder="M" value="97">, x<sub>0</sub> = 
         <input type="text" size = "3" id="v-create-arr-x0" title="Enter the starting value" autocomplete="off" placeholder="x0" value="62">
-        <span id="createuserdefined-go" class="execAction coloured-menu-option" onClick=userDefined()>GO</span>
+        <span id="createuserdefined-go" class="execAction 1107 coloured-menu-option" onClick=userDefined()>GO</span>
       <!--</div>-->
     </div>
     <div id="create-err" class="err"></div>
@@ -102,13 +139,18 @@
 <div id="right-bar"></div>
 <!-- Bottom bar and overlay popups -->
 <div id="bottom-bar">
-  <a id="trigger-about">About</a>
-  <a id="trigger-team">Team</a>
-  <a id="trigger-terms">Terms of use</a>
+  <a class="1108" id="trigger-about">About</a>
+  <a class="1109" id="trigger-team">Team</a>
+  <a class="1110" id="trigger-terms">Terms of use</a>
 </div>
 
 <div id="media-controls">
-  <div id="speed-control">slow<div id="speed-input"></div>fast</div>
+  <div id="speed-control">
+    <span class="1111">slow</span>
+      <div id="speed-input"></div>
+    <span class="1112">fast</span>
+  </div>
+  
   <span id="go-to-beginning" class="media-control-button" title="go to beginning" onclick=goToBeginning()><img src="img/goToBeginning.png" alt="go to beginning" /></span>
   <span id="previous" class="media-control-button" title="step backward" onclick=stepBackward()><img src="img/prevFrame.png" alt="previous frame" /></span>
   <span id="pause" class="media-control-button" title="pause" onclick=pause()><img src="img/pause.png" alt="pause" /></span>
@@ -123,7 +165,7 @@
 <div id="team" class="overlays"></div>
 <div id="termsofuse" class="overlays"></div>
 
-<div id="cyclefinding-tutorial-1" class="tutorial-dialog">
+<div id="cyclefinding-tutorial-1" class="tutorial-dialog 1113">
   Given a function (restricted to <b>f(x) = (A*x<sup>2</sup> + B*x + C) % M</b> for this visualization) and an initial value <b>x<sub>0</sub></b>,
   the cycle-finding problem is defined as the problem of finding the starting index <b>mu (&mu;)</b> of the cycle and the cycle length <b>lambda (&lambda;)</b>
   of a sequence of iterated function values:<br><b>{x<sub>0</sub>, x<sub>1</sub> = f(x<sub>0</sub>), x<sub>2</sub> = f(x<sub>1</sub>), ..., x<sub>i</sub> = f(x<sub>i-1</sub>), ...}</b>.<br>
@@ -131,7 +173,7 @@
   <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
 </div>
 
-<div id="cyclefinding-tutorial-2" class="tutorial-dialog">
+<div id="cyclefinding-tutorial-2" class="tutorial-dialog 1114">
   You can define custom function <b>f(x) = (A*x<sup>2</sup> + B*x + C) % M</b> here.<br>
   <ol>
     <li>Random: The function will be <b>f(x) = (x<sup>2</sup> - 1) % M</b> and only <b>M</b> and the <b>x<sub>0</sub></b> are randomly generated.</li>
@@ -141,24 +183,24 @@
   <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
 </div>
 
-<div id="cyclefinding-tutorial-3" class="tutorial-dialog">
+<div id="cyclefinding-tutorial-3" class="tutorial-dialog 1115">
   This is the visualisation of Floyd's cycle-finding algorithm.<br>
   The shape of <b>rho (&rho;)</b> of the sequence of iterated function values defined by <b>f(x)</b> and <b>x<sub>0</sub></b> nicely visualizes <b>&mu;</b> and <b>&lambda;</b>.<br>
   VisuAlgo uses <font color="green">green vertices to represent the tortoise (t)</font> and <font color="orange">orange vertices to represent the hare (h)</font>.<br>
   <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
 </div>
 
-<div id="cyclefinding-tutorial-4" class="tutorial-dialog">
+<div id="cyclefinding-tutorial-4" class="tutorial-dialog 1116">
   As the action is being carried out, each step will be described in the status panel.
   <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
 </div>
 
-<div id="cyclefinding-tutorial-5" class="tutorial-dialog">
+<div id="cyclefinding-tutorial-5" class="tutorial-dialog 1117">
   You can also follow the pseudocode highlights to trace the algorithm.
   <div class="tutorial-next">Next<img src="img/arrow_white_right.png"/></div>
 </div>
 
-<div id="cyclefinding-tutorial-6" class="tutorial-dialog">
+<div id="cyclefinding-tutorial-6" class="tutorial-dialog 1118">
   Control the animation with the player controls! Keyboard shortcuts are:<br/>
   <div style="margin-top: 8px;"><strong>Spacebar:</strong> play/pause/replay</div>
   <strong>Left/right arrows:</strong> step backward/step forward<br/>
