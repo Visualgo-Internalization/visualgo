@@ -266,7 +266,7 @@ var Floyd = function() {
     currentState["vl"][currentTortoiseClass]["state"] = VERTEX_GREEN_FILL;
     currentHareClass = internalList[currentHare]["vertexClassNumber"];
     currentState["vl"][currentHareClass]["state"] = VERTEX_HIGHLIGHTED;
-    currentState["status"] = getTranslatedHtml(1229, "Set hare to the next vertex after tortoise's phase 2 stopping point")
+    currentState["status"] = "" + getTranslatedHtml(1229, "Set hare to the next vertex after tortoise's phase 2 stopping point")
                              + "<br>" + getTranslatedHtml(1230, "Let tortoise stays at phase 2 stopping point");
     currentState["lineNo"] = 5;
     hareParent = internalList[currentHare]["parent"];
@@ -279,9 +279,10 @@ var Floyd = function() {
     currentState["vl"][currentHareClass]["state"] = VERTEX_HIGHLIGHTED;
     tortoiseTraversed[currentTortoise] = true;
     hareTraversed[currentHare] = true;
-    currentState["status"] = getTranslatedHtml(1231, "Phase 3: After Phase 2, tortoise is staying at &mu; and hare moves")
+    currentState["status"] = getTranslatedHtml(1231, "Phase 3: After Phase 2, tortoise is staying at")
+                             + " &mu; " + getTranslatedHtml(1232, "and hare moves")
                              + "<br>" 
-                             + getTranslatedHtml(1232, "When they meet again, we get the cycle-length &lambda;");
+                             + getTranslatedHtml(1233, "When they meet again, we get the cycle-length &lambda;");
     currentState["lineNo"] = 6;
     var edgeHighlighted = internalList[hareParent]["vertexClassNumber"];
     edgeTraversed[edgeHighlighted] = true;
@@ -299,14 +300,14 @@ var Floyd = function() {
       currentHareClass = internalList[currentHare]["vertexClassNumber"];
       currentState["vl"][currentHareClass]["state"] = VERTEX_HIGHLIGHTED;
       if (parseInt(currentHare) != parseInt(currentTortoise))
-        currentState["status"] = getTranslatedHtml(1233, "tortoise and hare pointers have not met")
+        currentState["status"] = getTranslatedHtml(1234, "tortoise and hare pointers have not met")
                                  + "(t=" + currentTortoise + " and h=" + currentHare + ")<br>"
-                                 + getTranslatedHtml(1234, "This time, only hare moves one vertex forward")
+                                 + getTranslatedHtml(1235, "This time, only hare moves one vertex forward")
                                  + "; &lambda; = " + lambda;
       else
-        currentState["status"] = getTranslatedHtml(1235, "tortoise and hare pointers have just met")
+        currentState["status"] = getTranslatedHtml(1236, "tortoise and hare pointers have just met")
                                  + "(t=" + currentTortoise + " and h=" + currentHare + ")<br>"
-                                 + getTranslatedHtml(1236, "let's stop the third loop");
+                                 + getTranslatedHtml(1237, "let's stop the third loop");
       currentState["lineNo"] = 6;
       // this time it is good to highlight the edges to show lambda :)
       var edgeHighlighted = internalList[hareParent]["vertexClassNumber"];
@@ -320,15 +321,15 @@ var Floyd = function() {
  
     currentState = createState(internalList, tortoiseTraversed, hareTraversed, edgeTraversed);
     currentState["vl"][currentTortoiseClass]["state"] = VERTEX_GREEN_FILL; // I want mu is highlighted with green and lambda by the orange edges
-    currentState["status"] = getTranslatedHtml(1237, "Floyd's Cycle-Finding algorithm Phase 3 (computing")
+    currentState["status"] = getTranslatedHtml(1238, "Floyd's Cycle-Finding algorithm Phase 3 (computing")
                              + " &lambda;)"
-                             + getTranslatedHtml(1238, " is done") + "<br>&lambda; = " + lambda;
+                             + getTranslatedHtml(1239, " is done") + "<br>&lambda; = " + lambda;
     currentState["lineNo"] = 6;
     stateList.push(currentState);
 
     currentState = createState(internalList, tortoiseTraversed, hareTraversed, edgeTraversed);
     currentState["vl"][currentTortoiseClass]["state"] = VERTEX_GREEN_FILL; // I want mu is highlighted with green and lambda by the orange edges
-    currentState["status"] = getTranslatedHtml(1239, "The entire Floyd's Cycle-Finding algorithm is completed")
+    currentState["status"] = "" + getTranslatedHtml(1240, "The entire Floyd's Cycle-Finding algorithm is completed")
                             + "<br>&mu; = " + mu + " and &lambda; = " + lambda;
     currentState["lineNo"] = 7;
     stateList.push(currentState);
