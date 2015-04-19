@@ -137,8 +137,12 @@
         $id = $_POST["id"];
         $pw = crypt($_POST["pw"], "CRYPT_MD5");
 
+
+
         $input  = cleanInput($id);
-        $id = mysql_real_escape_string($input);
+        $id = $db->real_escape_string($input);
+
+
         if($id != null){
             $query = "insert into contributor values ('".$id."', '".$pw."')";
         }
