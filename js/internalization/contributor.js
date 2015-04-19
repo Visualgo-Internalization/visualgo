@@ -59,6 +59,7 @@ function logined(username) {
     $("#login-button").hide();
     $("#logout-button").show();
     $("#username-topbar").html("Hello, " + username);
+    $(".jumbotron").fadeOut(3000);
 }
 
 function updateContribution() {
