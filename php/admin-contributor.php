@@ -202,6 +202,10 @@
     }
 
     function getTableOfLanguage() {
+        if (!$_SESSION["isAdmin"]) {
+            return;
+        }
+
         $result = array();
         $result["?Contributors"] = array();
 
