@@ -43,23 +43,58 @@ $(document).ready(function() {
     });
 
     $("#new-contributor-button").click(function() {
-        var username = prompt("Please enter the account name", "Username");
-        var password = prompt("Please enter the password", "Username");
-        if (username != null && password != null) {
-            $.ajax({
-                type: "POST",
-                url: "php/admin-contributor.php",
-                data: {
-                    action: "newContributor",
-                    id: username,
-                    pw: password
-                },
-                success: function(data) {
-                    showContributorTable();
-                },
-                async: false
-            });
-        }
+
+
+                var content = "<div class='col-lg-12'>";
+                content += "<h1 class='page-header'>New Contributor</h1>";
+                content += "</div>";
+                
+            content += "</div>";
+            
+            content += "<div class='row'>";
+                content += "<div class='col-lg-12'>";
+                    content += "<div class='panel panel-default'>";
+                        content += "<div class='panel-body'>";
+                                content += "<form role='form'>";
+                                    content += "<div class='form-group'>";
+                                        content += "<label>Contributor ID</label>";
+                                        content += "<input type='text' class='form-control' id='contributor-id'>";
+                                    content += "</div>";
+                                    content += "<div class='form-group'>";
+                                        content += "<label>Authentication Token</label>";
+                                        content += "<input type='text' class='form-control' id='contributor-pass'>";
+                                    content += "</div>";
+                                    content += "<button type='submit' class='btn btn-default' id='submit-contributor'>Create Contributor</button>";
+                                content += "</form>";
+                            content += "</div>";
+                        content += "</div>";
+                    content += "</div>";
+                content += "</div>";
+                $("#page-wrapper").html(content);
+        // var username = prompt("Please enter the account name", "Username");
+        // var password = prompt("Please enter the password", "Username");
+
+        
+        $(document).on('click', '#submit-contributor', function() {
+            var username = $("#contributor-id").val();
+            var password = $("#contributor-pass").val();
+            if (username != null && password != null) {
+                $.ajax({
+                    type: "POST",
+                    url: "php/admin-contributor.php",
+                    data: {
+                        action: "newContributor",
+                        id: username,
+                        pw: password
+                    },
+                    success: function(data) {
+                        showContributorTable();
+                    },
+                    async: false
+                });
+            }
+
+        });
     });
 
 
