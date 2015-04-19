@@ -208,6 +208,7 @@ function generateContributorTable(arr) {
     content += "</tbody></table>";
 
     $("#table-area").html(content);
+    $("#page-wrapper").html(content);    
 }
 
 function generateTable(language, head, arr) {
@@ -261,4 +262,5 @@ function generateTable(language, head, arr) {
     content += "</tbody></table>";
 
     $("#table-area").html(content);
+    $("#page-wrapper").html(content);
 }
