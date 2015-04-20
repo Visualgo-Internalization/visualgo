@@ -218,13 +218,15 @@
         }
 
         $output = array();
-        $tableName = array("English", $_POST["language"], $_POST["language"]."_".$_SESSION["id"]);
+        $name = $_POST["language"] ."_". $_SESSION["id"];
+        $tableName = array("English", $_POST["language"], $name);
 
         for($i = 0; $i < 3; $i++) {
             $result = array();
             $table = getTableFromDatabase($tableName[$i]);
             while ($row = mysqli_fetch_row($table)) {
                 $result[] = array($row[0], $row[1]);
+                ///$result[] = array($_POST["language"], $_SESSION["id"]);
             }
             $output[$i] = $result;
         }
