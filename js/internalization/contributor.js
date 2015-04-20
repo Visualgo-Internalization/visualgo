@@ -141,7 +141,7 @@ function updateTranslationTables(arr) {
     var content = "";
     for (var i = 0; i < sections.length; i++) {
         content += "<h2>"+sections[i]+"</h2>";
-        content += "<table class='table table-hover table-striped table-condensed'> \
+        content += "<table class='table table-hover table-striped table-condensed table-bordered'> \
             <thead> \
                 <tr> \
                     <th class='col-md-2'> ID</th> \
