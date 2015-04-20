@@ -31,8 +31,13 @@ $(document).ready(function() {
 
     $(document).on('click', '.section', function() {
         updateContribution();
-        changeSection($(this).html());
-        updateTranslationTable();
+        var classList = $(this).attr('class').split(/\s+/);
+        var id1 = classList[1];
+        var id2 = classList[2];
+        var id = id1 + " " + id2;
+        var index = sections.indexOf(id);
+        //changeSection($(this).html());
+        updateTranslationTable(index);
     });
 
     $("#logout-button").click(function() {
@@ -85,7 +90,7 @@ function showSections() {
         content += "<a href='#'><i class='fa fa-bar-chart-o fa-fw'></i> Sections<span class='fa arrow'></span></a>";
         content += "<ul class='nav nav-second-level'>";
         for (x = 0; x < sections.length; x++) {
-            content += "<li><a class='section' href='#'>" + sections[x] +"</a></li>";
+            content += "<li><a class='section " + sections[x] +"' href='#'>" + sections[x] +"</a></li>";
         }
             
         content += "</ul>";
@@ -114,7 +119,7 @@ function updateContribution() {
     });
 }
 
-function updateTranslationTable() {
+function updateTranslationTable(index) {
     var language = getLanguage();
     $.ajax({
         type: "POST",
@@ -124,16 +129,16 @@ function updateTranslationTable() {
             language: language
         },
         success: function(data) { 
-            updateTranslationTables(JSON.parse(data));
+            updateTranslationTables(JSON.parse(data), index);
         },
         async: false
     });
 }
 
-var sections = ["Graph Traversal"];
-var ranges = [[100, 399]];
+var sections = ["Graph Traversal", "Cycle Finding"];
+var ranges = [[100, 399],[1100,1400]];
 
-function updateTranslationTables(arr) {
+function updateTranslationTables(arr, index) {
     var sentence = [];
     var currentTranslation = [];
     var yourTranslation = [];
@@ -148,8 +153,8 @@ function updateTranslationTables(arr) {
     }
     
     var content = "";
-    for (var i = 0; i < sections.length; i++) {
-        content += "<h2>"+sections[i]+"</h2>";
+    for (var i = 0; i < 1; i++) {
+        content += "<h2>"+sections[index]+"</h2>";
         content += "<table class='table table-hover table-striped table-condensed table-bordered'> \
             <thead> \
                 <tr> \
@@ -160,7 +165,7 @@ function updateTranslationTables(arr) {
                 </tr> \
             </thead> \
             <tbody>"; 
-        for (var j = ranges[i][0]; j <= ranges[i][1]; j++) {
+        for (var j = ranges[index][0]; j <= ranges[index][1]; j++) {
             if (typeof sentence[j] !== 'undefined') {
                 var curTranslation = typeof currentTranslation[j] !== 'undefined' ? currentTranslation[j] : "";
                 var urTranslation = typeof yourTranslation[j] !== 'undefined' ? yourTranslation[j] : "";
