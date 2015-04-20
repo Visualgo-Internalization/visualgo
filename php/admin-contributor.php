@@ -30,6 +30,7 @@
                 case "getAllTableOfThisLanguage": getTableOfLanguage(); break;
                 case "getContributors": getContributors(); break;
                 case "newContributor": newContributor(); break;
+                case "deleteContributor" : deleteContributor(); break;
                 case "approveContribution": approveContribution(); break;
                 case "rejectContribution": rejectContribution(); break;
                 
@@ -157,6 +158,22 @@
                 $db->query($query);
             }*/
         } else {
+        }
+    }
+
+    function deleteContributor() {
+        global $db;
+        setupDatabase(); 
+        $id = $_POST["id"];
+        if($id != null){
+            $query = "delete FROM contributor WHERE username='" .$id. "'";
+        }
+        if($db->query($query)){
+            $languages = array("Vietnamese", "Chinese", "Indonesian");
+            for($i = 0; $i < 3; $i++) {
+                $query = "drop table ".$languages[$i]."_".$id;
+                $db->query($query);
+            }
         }
     }
 
