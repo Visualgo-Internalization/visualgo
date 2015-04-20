@@ -92,7 +92,7 @@ $(document).ready(function() {
                                     content += "<input type='text' class='form-control' id='contributor-pass'>";
                                 content += "</div>";
                                 content += "<div class='form-group'>";
-                                    content += "<label>Selects</label>";
+                                    content += "<label>Language</label>";
                                     content += "<select class='form-control' id='contributor-lang'>";
                                         content += "<option>Vietnamese</option>";
                                         content += "<option>Chinese</option>";

@@ -195,7 +195,11 @@
         $tableName = $_POST["language"]."_".$_SESSION["id"];
         $data = json_decode($_POST["data"]);
         for ($i = 0; $i < count($data); $i++) {
-            updateDatabase($tableName, $data[$i][0], $data[$i][1]);
+            $input  = cleanInput($data[$i][1]);
+            $id = $db->real_escape_string($input);
+            if($id != null){
+                updateDatabase($tableName, $data[$i][0], $id);
+            }
         }
     }
 
