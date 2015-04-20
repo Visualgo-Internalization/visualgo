@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Visualgo Contributor's Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="stylesheet" href="css/contributor-admin.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+  <script src="js/internalization/contributor.js" type="text/javascript"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">VisuAlgo</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Language <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a class="language" href="#">Vietnamese</a></li>
+            <li><a class="language" href="#">Chinese</a></li>
+            <li><a class="language" href="#">Indonesian</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="username-topbar" hred="#"></a></li>
+        <li><a id="logout-button" href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        <li><a id="login-button" href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container">
+  <div class="jumbotron">
+    <h3 id="welcome-text" style="text-align: center">Hello, please login first to start your contribution!!</h3>      
+  </div>
+
+  <section id="translation-area">
+  </section>
+</div>
+
+</body>
+</html>

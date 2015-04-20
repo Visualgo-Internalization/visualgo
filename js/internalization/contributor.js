@@ -22,6 +22,12 @@ $(document).ready(function() {
         updateTranslationTable();
     });
 
+    $(document).on('click', '.section', function() {
+        updateContribution();
+        changeSection($(this).html());
+        updateTranslationTable();
+    });
+
     $("#logout-button").click(function() {
         $.ajax({
             type: "POST",
@@ -52,6 +58,7 @@ function logouted() {
     $("#logout-button").hide();
     $("#username-topbar").hide();
     $("#translation-area").hide();
+    $("#page-wrapper").hide(); 
 }
 
 function logined(username) {
@@ -59,7 +66,22 @@ function logined(username) {
     $("#login-button").hide();
     $("#logout-button").show();
     $("#username-topbar").html("Hello, " + username);
-    $(".jumbotron").fadeOut(3000);
+    $(".jumbotron").hide();
+    $("#page-wrapper").show();     
+    showSections();
+}
+
+function showSections() {
+    var content = "<li>";
+        content += "<a href='#'><i class='fa fa-bar-chart-o fa-fw'></i> Sections<span class='fa arrow'></span></a>";
+        content += "<ul class='nav nav-second-level'>";
+        for (x = 0; x < sections.length; x++) {
+            content += "<li><a class='section' href='#'>" + sections[x] +"</a></li>";
+        }
+            
+        content += "</ul>";
+    content += "</li>";
+    $("#side-menu").append(content);
 }
 
 function updateContribution() {
@@ -144,6 +166,7 @@ function updateTranslationTables(arr) {
         content += "</tbody></table>";
     }
     $("#translation-area").html(content);
+    $("#page-wrapper").html(content); 
 }
 
 function getLanguage() {
