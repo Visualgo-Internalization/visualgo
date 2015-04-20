@@ -1,4 +1,11 @@
 $(document).ready(function() {
+
+    $('#page-wrapper') .css({'margin-top': '0', 'padding-top': (($('.navbar-fixed-top').height()) - 20 )+'px'});
+    $(window).resize(function(){
+        $('#page-wrapper') .css({'margin-top': '0', 'padding-top': (($('.navbar-fixed-top').height()) - 20 )+'px'});
+    });
+
+
     $.ajax({
         type: "POST",
         url: "php/admin-contributor.php",
@@ -58,6 +65,8 @@ function logouted() {
     $("#logout-button").hide();
     $("#username-topbar").hide();
     $("#translation-area").hide();
+    
+    $(".sidebar").hide();
     $("#page-wrapper").hide(); 
 }
 

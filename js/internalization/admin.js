@@ -1,5 +1,10 @@
 $(document).ready(function() {
 
+    $('#page-wrapper') .css({'padding-top': (($('.navbar-fixed-top').height()) + 1 )+'px'});
+    $(window).resize(function(){
+        $('#page-wrapper') .css({'padding-top': (($('.navbar-fixed-top').height()) + 1 )+'px'});
+    });
+
     $.ajax({
         type: "POST",
         url: "php/admin-contributor.php",
