@@ -293,13 +293,15 @@ function generateContributorTable(arr) {
     content += "<h2>Contributors</h2>";
     content += "<table class='table table-hover table-striped table-condensed table-bordered'><thead><tr>";
     content += "<th style='text-align: center'> Contributor ID </th>";
+    content += "<th style='text-align: center'> Language </th>";    
     content += "<th style='text-align: center'> Delete Contributor </th>";
     content += "</tr></thead><tbody>"; 
 
     for (var j = 0; j < arr.length; j++) {
         content += "<tr>";
-        content += "<td style='text-align: center'>" + arr[j] + "</td>";
-        content += "<td style='text-align: center'><img class='delete-contributor " + arr[j] + "' src='img/reject.png' width='20' height='20' align='middle'></td>";
+        content += "<td style='text-align: center'>" + arr[j][0] + "</td>";
+        content += "<td style='text-align: center'>" + arr[j][1] + "</td>";
+        content += "<td style='text-align: center'><img class='delete-contributor " + arr[j][0] + "' src='img/reject.png' width='20' height='20' align='middle'></td>";
         content += "</tr>";
     }
     content += "</tbody></table>";
