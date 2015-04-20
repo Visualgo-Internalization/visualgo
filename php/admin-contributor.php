@@ -81,6 +81,9 @@
     }
 
     function login() {
+        global $db;
+        setupDatabase();
+        
         $id = $_POST["id"];
         $pw = crypt($_POST["pw"], "CRYPT_MD5");
 
@@ -91,6 +94,14 @@
         } else if (checkUser("contributor", $id, $pw)) {
             $_SESSION["isContributor"] = true;
             $_SESSION["id"] = $id;
+
+            $query = "select language from contributor where username = '".$id."'";
+
+            if ($res = $db->query($query)) {
+                $row = mysqli_fetch_row($res);
+                $_SESSION["language"] = $row[0];
+            }
+
             echo "contributor";
         } else {
             echo $pw;
@@ -107,7 +118,7 @@
     function checkUser($tableName, $id, $pw) {
         global $db;
         setupDatabase();
-        $query = "select * from ".$tableName." where userName = '".$id."'";
+        $query = "select * from ".$tableName." where username = '".$id."'";
         $res = $db->query($query);
         if ($res = $db->query($query)) {
             $row = mysqli_fetch_row($res);
@@ -146,7 +157,7 @@
         $lang = $db->real_escape_string($input);
 
         if($id != null){
-            $query = "insert into contributor values ('".$id."', '".$pw."')";
+            $query = "insert into contributor values ('".$id."', '".$pw."', '".$lang."')";
         }
         if ($db->query($query)) {
             ///$languages = array("Vietnamese", "Chinese", "Indonesian");
@@ -196,7 +207,7 @@
         $result = array();
         $table = getTableFromDatabase("contributor");
         while ($row = mysqli_fetch_row($table)) {
-            $result[] = $row[0];
+            $result[] = array($row[0], $row[2]);
         }
         echo json_encode($result);
     }
