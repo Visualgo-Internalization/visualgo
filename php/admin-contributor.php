@@ -136,23 +136,26 @@
 
         $id = $_POST["id"];
         $pw = crypt($_POST["pw"], "CRYPT_MD5");
-
-
+        $lang = $_POST["lang"];
 
         $input  = cleanInput($id);
         $id = $db->real_escape_string($input);
 
+        $input  = cleanInput($lang);
+        $lang = $db->real_escape_string($input);
 
         if($id != null){
             $query = "insert into contributor values ('".$id."', '".$pw."')";
         }
         if ($db->query($query)) {
-            $languages = array("Vietnamese", "Chinese", "Indonesian");
-
+            ///$languages = array("Vietnamese", "Chinese", "Indonesian");
+            $query = "create table ".$lang."_".$id." (id INT PRIMARY KEY, content VARCHAR(500))";
+            $db->query($query);
+            /*
             for($i = 0; $i < 3; $i++) {
                 $query = "create table ".$languages[$i]."_".$id." (id INT PRIMARY KEY, content VARCHAR(500))";
                 $db->query($query);
-            }
+            }*/
         } else {
         }
     }

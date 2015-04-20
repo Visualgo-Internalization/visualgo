@@ -42,6 +42,25 @@ $(document).ready(function() {
 
     $("#contributor-button").click(function() {
         showContributorTable();
+
+        $(document).on('click', '.delete-contributor', function() {
+            var username = $(".contributor td").val();
+            if (username != null) {
+                $.ajax({
+                    type: "POST",
+                    url: "php/admin-contributor.php",
+                    data: {
+                        action: "deleteContributor",
+                        id: username,
+                    },
+                    success: function(data) {
+                        showContributorTable();
+                    },
+                    async: false
+                });
+            }
+
+        });
     });
 
     $("#new-contributor-button").click(function() {
@@ -66,6 +85,14 @@ $(document).ready(function() {
                                     content += "<label>Authentication Token</label>";
                                     content += "<input type='text' class='form-control' id='contributor-pass'>";
                                 content += "</div>";
+                                content += "<div class='form-group'>";
+                                    content += "<label>Selects</label>";
+                                    content += "<select class='form-control' id='contributor-lang'>";
+                                        content += "<option>Vitenamese</option>";
+                                        content += "<option>Chinese</option>";
+                                        content += "<option>Indonesian</option>";
+                                    content += "</select>";
+                                content += "</div>";
                                 content += "<button type='submit' class='btn btn-default' id='submit-contributor'>Create Contributor</button>";
                             content += "</form>";
                         content += "</div>";
@@ -80,6 +107,7 @@ $(document).ready(function() {
         $(document).on('click', '#submit-contributor', function() {
             var username = $("#contributor-id").val();
             var password = $("#contributor-pass").val();
+            var language = $("#contributor-lang option:selected").text();
             if (username != null && password != null) {
                 $.ajax({
                     type: "POST",
@@ -87,7 +115,8 @@ $(document).ready(function() {
                     data: {
                         action: "newContributor",
                         id: username,
-                        pw: password
+                        pw: password,
+                        lang: language
                     },
                     success: function(data) {
                         showContributorTable();
