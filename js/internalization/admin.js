@@ -43,8 +43,9 @@ $(document).ready(function() {
     $("#contributor-button").click(function() {
         showContributorTable();
 
-        $(document).on('click', '.delete-contributor', function() {
-            var username = $(".contributor td").val();
+        $(document).on('click', 'img.delete-contributor', function() {
+            var classList =$(this).attr('class').split(/\s+/);
+            var username = classList[1];
             if (username != null) {
                 $.ajax({
                     type: "POST",
@@ -88,7 +89,7 @@ $(document).ready(function() {
                                 content += "<div class='form-group'>";
                                     content += "<label>Selects</label>";
                                     content += "<select class='form-control' id='contributor-lang'>";
-                                        content += "<option>Vitenamese</option>";
+                                        content += "<option>Vietnamese</option>";
                                         content += "<option>Chinese</option>";
                                         content += "<option>Indonesian</option>";
                                     content += "</select>";
@@ -286,11 +287,14 @@ function generateContributorTable(arr) {
     var content = "";
     content += "<h2>Contributors</h2>";
     content += "<table class='table table-hover table-striped table-condensed table-bordered'><thead><tr>";
+    content += "<th style='text-align: center'> Contributor ID </th>";
+    content += "<th style='text-align: center'> Delete Contributor </th>";
     content += "</tr></thead><tbody>"; 
 
     for (var j = 0; j < arr.length; j++) {
         content += "<tr>";
-        content += "<td>" + arr[j] + "</td>";
+        content += "<td style='text-align: center'>" + arr[j] + "</td>";
+        content += "<td style='text-align: center'><img class='delete-contributor " + arr[j] + "' src='img/reject.png' width='20' height='20' align='middle'></td>";
         content += "</tr>";
     }
     content += "</tbody></table>";
