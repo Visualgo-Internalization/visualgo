@@ -96,10 +96,12 @@
         $id = $_POST["id"];
         $content = $_POST["text"];
 
-        $text = getContentFromDatabase("English", $id);
-        if (is_null($text) || $content != $text) {
-            updateOtherLanguages($id, $content);
-            updateDatabase("English", $id, $content);
+        if($_SESSION["isAdmin"]){
+            $text = getContentFromDatabase("English", $id);
+            if (is_null($text) || $content != $text) {
+                updateOtherLanguages($id, $content);
+                updateDatabase("English", $id, $content);
+            }
         }
 
         $tableName = $_SESSION["language"];
