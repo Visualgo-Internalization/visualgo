@@ -40,7 +40,7 @@ $(document).ready(function() {
 
         refreshIntervalId.push(setInterval(function() {
             showTable(language);
-        }, 5000));
+        }, 2500));
 
 
     });
