@@ -189,7 +189,7 @@ function getLanguage() {
         type: "POST",
         url: "php/admin-contributor.php",
         data: {
-            action: "getLanguage",
+            action: "getContributorLanguage",
         },
         success: function(data) {
             currentLanguage = data;

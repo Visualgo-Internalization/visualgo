@@ -10,7 +10,7 @@
         $_SESSION["isContributor"] = false;
     }
     if (!isset($_SESSION["language"])) {
-        $_SESSION["language"] = "Vietnamese";
+        $_SESSION["language"] = "English";
     }
 
     if (is_ajax()) {
@@ -27,6 +27,7 @@
                 case "logout": logout(); break;
                 case "changeLanguage": changeLanguage(); break;
                 case "getLanguage": getLanguage(); break;
+                case "getContributorLanguage": getContributorLanguage(); break;
                 case "getAllTableOfThisLanguage": getTableOfLanguage(); break;
                 case "getContributors": getContributors(); break;
                 case "newContributor": newContributor(); break;
@@ -54,6 +55,10 @@
 
     function getLanguage() {
         echo $_SESSION["language"];
+    }
+
+    function getContributorLanguage() {
+        echo $_SESSION["languageContributor"];
     }
 
     function changeLanguage() {
@@ -99,7 +104,7 @@
 
             if ($res = $db->query($query)) {
                 $row = mysqli_fetch_row($res);
-                $_SESSION["language"] = $row[0];
+                $_SESSION["languageContributor"] = $row[0];
             }
 
             echo "contributor";
