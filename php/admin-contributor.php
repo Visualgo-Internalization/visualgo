@@ -166,7 +166,7 @@
         }
         if ($db->query($query)) {
             ///$languages = array("Vietnamese", "Chinese", "Indonesian");
-            $query = "create table ".$lang."_".$id." (id INT PRIMARY KEY, content VARCHAR(500))";
+            $query = "create table ".$lang."_".$id." (id INT PRIMARY KEY, content VARCHAR(500), status VARCHAR(32))";
             $db->query($query);
             /*
             for($i = 0; $i < 3; $i++) {
@@ -304,9 +304,9 @@
         global $db;
         setupDatabase();
 
-        $query = "insert into ".$tableName." values (".$id.", '".$content."')";
+        $query = "insert into ".$tableName." values (".$id.", '".$content."', 'Pending')";
         if (!($db -> query($query))) {
-            $query = "update ".$tableName." set content='".$content."' where id=".$id;
+            $query = "update ".$tableName." set content='".$content."', status='Pending' where id=".$id;
             $db -> query($query);
         }
     }
