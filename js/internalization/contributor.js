@@ -195,12 +195,20 @@ function updateTranslationTables(arr, index) {
             if (typeof sentence[j] !== 'undefined') {
                 var curTranslation = typeof currentTranslation[j] !== 'undefined' ? currentTranslation[j] : "";
                 var urTranslation = typeof yourTranslation[j] !== 'undefined' ? yourTranslation[j] : "";
+                var color = "";
                 content += "<tr>";
                 content += "<td>" + j + "</td>";
                 content += "<td>" + sentence[j] + "</td>";
                 content += "<td>" + curTranslation + "</td>";
                 content += "<td><textarea id='" + j + "'>"+urTranslation+"</textarea></td>";
-                content += "<td>"+ (status[j] != null ? status[j] : "") +"</td>";
+                if(status[j] == 'Approved'){
+                    color = "green";
+                }else if(status[j] == "Rejected"){
+                    color = "red";
+                }else{
+                    color = "black";
+                }
+                content += "<td><center><b style='color:"+ color +"'>"+ (status[j] != null ? status[j] : "") +"</b></center></td>";
                 content += "</tr>";
             }
         }   
