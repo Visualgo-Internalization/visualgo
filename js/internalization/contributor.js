@@ -1,11 +1,5 @@
 $(document).ready(function() {
 
-    $('#page-wrapper') .css({'margin-top': '0', 'padding-top': (($('.navbar-fixed-top').height()) - 20 )+'px'});
-    $(window).resize(function(){
-        $('#page-wrapper') .css({'margin-top': '0', 'padding-top': (($('.navbar-fixed-top').height()) - 20 )+'px'});
-    });
-
-
     $.ajax({
         type: "POST",
         url: "php/admin-contributor.php",
@@ -21,6 +15,12 @@ $(document).ready(function() {
         },
         async: false
     });
+
+    $('#page-wrapper') .css({'margin-top': '0', 'padding-top': (($('.navbar-fixed-top').height()) - 20 )+'px'});
+    $(window).resize(function(){
+        $('#page-wrapper') .css({'margin-top': '0', 'padding-top': (($('.navbar-fixed-top').height()) - 20 )+'px'});
+    });
+
 
     // handlers
     $(".language").click(function(e) {
@@ -178,8 +178,8 @@ function updateTranslationTables(arr, index) {
     
     var content = "";
     for (var i = 0; i < 1; i++) {
-        content += "<h2>"+sections[index];
-        content += "<span style='float: right;'> <button type='button' class='btn btn-success " + sections[index] + "'>Save your translations</button> </span>" + "</h2>";
+        content += "<h1 class='page-header'>"+sections[index];
+        content += "<span style='float: right;'> <button type='button' class='btn btn-success " + sections[index] + "'>Save your translations</button> </span>" + "</h1>";
         content += "<table class='table table-hover table-striped table-condensed table-bordered'> \
             <thead> \
                 <tr> \
