@@ -46,9 +46,9 @@ $(document).ready(function() {
 
     $(document).on('click', '.btn-success', function() {
 
-        var content = "<div class='alert alert-success alert-dismissable'>";
+        var content = "<div class='alert alert-success alert-dismissable' >";
         content += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
-        content += "You translation has been saved!";
+        content += "<h4>You translation has been saved!</h4>";
         content += "</div>";
         updateContribution();
         var classList = $(this).attr('class').split(/\s+/);
@@ -59,7 +59,7 @@ $(document).ready(function() {
         // var id = id1 + " " + id2;
         var index = sections.indexOf(id);
         updateTranslationTable(index);
-        $("#page-wrapper").prepend(content); 
+        $(".page-header").prepend(content); 
     });
 
     $("#logout-button").click(function() {
