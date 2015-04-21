@@ -32,12 +32,34 @@ $(document).ready(function() {
     $(document).on('click', '.section', function() {
         updateContribution();
         var classList = $(this).attr('class').split(/\s+/);
+        // classList.splice(0, 1);
+        // classList.splice(classList.length - 1, 1);
+        // var id = classList.join(" ");
         var id1 = classList[1];
         var id2 = classList[2];
         var id = id1 + " " + id2;
         var index = sections.indexOf(id);
         //changeSection($(this).html());
+        
         updateTranslationTable(index);
+    });
+
+    $(document).on('click', '.btn-success', function() {
+
+        var content = "<div class='alert alert-success alert-dismissable'>";
+        content += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+        content += "You translation has been saved!";
+        content += "</div>";
+        updateContribution();
+        var classList = $(this).attr('class').split(/\s+/);
+        classList.splice(0, 2);
+        var id = classList.join(" ");
+        // var id1 = classList[1];
+        // var id2 = classList[2];
+        // var id = id1 + " " + id2;
+        var index = sections.indexOf(id);
+        updateTranslationTable(index);
+        $("#page-wrapper").prepend(content); 
     });
 
     $("#logout-button").click(function() {
@@ -154,7 +176,8 @@ function updateTranslationTables(arr, index) {
     
     var content = "";
     for (var i = 0; i < 1; i++) {
-        content += "<h2>"+sections[index]+"</h2>";
+        content += "<h2>"+sections[index];
+        content += "<span style='float: right;'> <button type='button' class='btn btn-success " + sections[index] + "'>Save your translations</button> </span>" + "</h2>";
         content += "<table class='table table-hover table-striped table-condensed table-bordered'> \
             <thead> \
                 <tr> \
