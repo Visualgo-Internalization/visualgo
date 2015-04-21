@@ -1,3 +1,5 @@
+var refreshIntervalId = [];
+
 $(document).ready(function() {
 
     $.ajax({
@@ -28,10 +30,23 @@ $(document).ready(function() {
     
     // handlers
     $(".language").click(function(e) {
-        showTable($(this).text().trim());
+        stopIntervals();
+
+        var language = $(this).text().trim();
+
+        showTable(language);
+
+        
+
+        refreshIntervalId.push(setInterval(function() {
+            showTable(language);
+        }, 5000));
+
+
     });
 
     $("#logout-button").click(function() {
+        stopIntervals();
         $.ajax({
             type: "POST",
             url: "php/admin-contributor.php",
@@ -46,10 +61,12 @@ $(document).ready(function() {
     });
 
     $("#login-button").click(function() {
+        stopIntervals();        
         window.location = 'login.html';
     });
 
     $("#contributor-button").click(function() {
+        stopIntervals();        
         showContributorTable();
 
         $(document).on('click', 'img.delete-contributor', function() {
@@ -74,7 +91,7 @@ $(document).ready(function() {
     });
 
     $("#new-contributor-button").click(function() {
-
+        stopIntervals();
 
         var content = "<div class='col-lg-12'>";
         content += "<h1 class='page-header'>New Contributor</h1>";
@@ -115,6 +132,7 @@ $(document).ready(function() {
 
         
         $(document).on('click', '#submit-contributor', function() {
+            stopIntervals();            
             var username = $("#contributor-id").val();
             var password = $("#contributor-pass").val();
             var language = $("#contributor-lang option:selected").text();
@@ -141,6 +159,7 @@ $(document).ready(function() {
 
 
     $(document).on('click', 'img.approve', function() {
+        stopIntervals();        
                             
                             
                             var classList =$(this).attr('class').split(/\s+/);
@@ -168,6 +187,7 @@ $(document).ready(function() {
 
 
     $(document).on('click', 'img.reject', function() {
+        stopIntervals();        
                             
                             
                             var classList =$(this).attr('class').split(/\s+/);
@@ -200,6 +220,15 @@ $(document).ready(function() {
     };
 });
 
+
+function stopIntervals() {
+    if (refreshIntervalId.length != 0) {
+        for (var x = 0; x < refreshIntervalId.length; x++) {
+            clearInterval(refreshIntervalId[x]);
+            refreshIntervalId.splice(x, 1);
+        }
+    }
+}
 
 function isLoggedIn() {
     $.ajax({
@@ -276,38 +305,39 @@ function showTable(language) {
     head[0] = "ID";
     head[1] = "English";
 
-    $.ajax({
-        type: "POST",
-        url: "php/admin-contributor.php",
-        data: {
-            action: "getAllTableOfThisLanguage",
-            language: language,
-        }, success: function(data) {
-            var a = JSON.parse(data);
-            
-            arr[1] = [];
-            for(var i = 0; i < a["?English"].length; i++) {
-                arr[1][a["?English"][i][0]] = a["?English"][i][1];
-            }
-            for(var i = 0; i < a["?Contributors"].length; i++) {
-                var contributor = a["?Contributors"][i];
-                currentCol++;
-                arr[currentCol] = [];
-                head[currentCol] = contributor;
 
-                for (var j = 0; j < a[contributor].length; j++) {
-                    arr[currentCol][a[contributor][j][0]] = a[contributor][j][1];
+        $.ajax({
+            type: "POST",
+            url: "php/admin-contributor.php",
+            data: {
+                action: "getAllTableOfThisLanguage",
+                language: language,
+            }, success: function(data) {
+                var a = JSON.parse(data);
+                
+                arr[1] = [];
+                for(var i = 0; i < a["?English"].length; i++) {
+                    arr[1][a["?English"][i][0]] = a["?English"][i][1];
                 }
-            }
+                for(var i = 0; i < a["?Contributors"].length; i++) {
+                    var contributor = a["?Contributors"][i];
+                    currentCol++;
+                    arr[currentCol] = [];
+                    head[currentCol] = contributor;
 
-            // head.push("Approve");
-            // head.push("Reject");
+                    for (var j = 0; j < a[contributor].length; j++) {
+                        arr[currentCol][a[contributor][j][0]] = a[contributor][j][1];
+                    }
+                }
 
-            generateTable(language, head, arr);
+                // head.push("Approve");
+                // head.push("Reject");
 
-        },  
-        async: false
-    });
+                generateTable(language, head, arr);
+
+            },  
+            async: false
+        });
 }
 
 function generateContributorTable(arr) {
