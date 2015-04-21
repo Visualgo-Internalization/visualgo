@@ -164,6 +164,7 @@ function updateTranslationTables(arr, index) {
     var sentence = [];
     var currentTranslation = [];
     var yourTranslation = [];
+    var status = [];
     for(var i = 0; i < arr[0].length; i++) {
         sentence[arr[0][i][0]] = arr[0][i][1];
     }
@@ -172,6 +173,7 @@ function updateTranslationTables(arr, index) {
     }
     for(var i = 0; i < arr[2].length; i++) {
         yourTranslation[arr[2][i][0]] = arr[2][i][1];
+        status[arr[2][i][0]] = arr[2][i][2];
     }
     
     var content = "";
@@ -181,10 +183,11 @@ function updateTranslationTables(arr, index) {
         content += "<table class='table table-hover table-striped table-condensed table-bordered'> \
             <thead> \
                 <tr> \
-                    <th class='col-md-2'> ID</th> \
+                    <th class='col-md-1'> ID</th> \
                     <th class='col-md-3'>Content</th> \
                     <th class='col-md-3'>Current Translation</th> \
-                    <th class='col-md-4'>Your Translation</th> \
+                    <th class='col-md-3'>Your Translation</th> \
+                    <th class='col-md-2'>Status</th> \
                 </tr> \
             </thead> \
             <tbody>"; 
@@ -197,6 +200,7 @@ function updateTranslationTables(arr, index) {
                 content += "<td>" + sentence[j] + "</td>";
                 content += "<td>" + curTranslation + "</td>";
                 content += "<td><textarea id='" + j + "'>"+urTranslation+"</textarea></td>";
+                content += "<td>"+ (status[j] != null ? status[j] : "") +"</td>";
                 content += "</tr>";
             }
         }   

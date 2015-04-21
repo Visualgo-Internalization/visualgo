@@ -234,7 +234,11 @@
             $result = array();
             $table = getTableFromDatabase($tableName[$i]);
             while ($row = mysqli_fetch_row($table)) {
-                $result[] = array($row[0], $row[1]);
+                if($i == 2){
+                    $result[] = array($row[0], $row[1], $row[2]);
+                }else{
+                    $result[] = array($row[0], $row[1]);
+                }
                 ///$result[] = array($_POST["language"], $_SESSION["id"]);
             }
             $output[$i] = $result;
@@ -263,7 +267,9 @@
 
                 $contributionArr = array();
                 while ($row2 = mysqli_fetch_row($contribution)) {
-                    $contributionArr[] = array($row2[0], $row2[1]);
+                    if($row2[2] == 'Pending'){
+                        $contributionArr[] = array($row2[0], $row2[1]);
+                    }
                 }
 
                 $result[$row[0]] = $contributionArr;
@@ -306,8 +312,12 @@
 
         $query = "insert into ".$tableName." values (".$id.", '".$content."', 'Pending')";
         if (!($db -> query($query))) {
-            $query = "update ".$tableName." set content='".$content."', status='Pending' where id=".$id;
-            $db -> query($query);
+            $text = "select * from " .$tableName. " where id=".$id;
+            $row = mysqli_fetch_row($db -> query($query));
+            if($row[1] != $content){
+                $query = "update ".$tableName." set content='".$content."', status='Pending' where id=".$id;
+                $db -> query($query);
+            }
         }
     }
 
@@ -326,7 +336,7 @@
             $query = "update ".$tableName." set content='".$content."' where id=".$id;
             $db -> query($query);
 
-            $query = "delete from ".$tableName."_".$contributor." where id=".$id;
+            $query = "update ".$tableName."_".$contributor." set status='Approved' where id=".$id;
             $db -> query($query);
 
         
@@ -354,7 +364,7 @@
             $id = $_POST["id"];
             $contributor = $_POST["contributor"];
 
-            $query = "delete from ".$tableName."_".$contributor." where id=".$id;
+            $query = "update ".$tableName."_".$contributor." set status='Rejected' where id=".$id;
             $db -> query($query);
         
         // if (isAdmin() != "") {
