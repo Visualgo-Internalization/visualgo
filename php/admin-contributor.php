@@ -28,6 +28,7 @@
                 case "changeLanguage": changeLanguage(); break;
                 case "getLanguage": getLanguage(); break;
                 case "getContributorLanguage": getContributorLanguage(); break;
+                case "getNumberOfContributions": getNumberOfContributions(); break;
                 case "getAllTableOfThisLanguage": getTableOfLanguage(); break;
                 case "getContributors": getContributors(); break;
                 case "newContributor": newContributor(); break;
@@ -219,6 +220,24 @@
             $result[] = array($row[0], $row[2]);
         }
         echo json_encode($result);
+    }
+
+    function getNumberOfContributions() {
+        global $db;
+        setupDatabase();
+
+        $language = $_POST["language"];
+
+        $query = "show tables like '".$language."%'";
+        $table = $db->query($query);
+        $count = 0;
+        while ($row = mysqli_fetch_row($table)) {
+            $subquery = "select count(*) from ".$row[0]." where status = 'Pending'";
+            $result = $db->query($subquery);
+            $subrow = mysqli_fetch_row($result);
+            $count = $count + $subrow[0];
+        }
+        echo json_encode($count);
     }
 
     function getData() {

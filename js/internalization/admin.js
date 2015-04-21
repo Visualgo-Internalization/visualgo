@@ -1,10 +1,5 @@
 $(document).ready(function() {
 
-    $('#page-wrapper') .css({'margin-top': '0', 'padding-top': (($('.navbar-fixed-top').height()) - 20 )+'px'});
-    $(window).resize(function(){
-        $('#page-wrapper') .css({'margin-top': '0', 'padding-top': (($('.navbar-fixed-top').height()) - 20 )+'px'});
-    });
-
     $.ajax({
         type: "POST",
         url: "php/admin-contributor.php",
@@ -20,11 +15,20 @@ $(document).ready(function() {
         },
         async: false
     });
-    
 
+    $('#page-wrapper') .css({'margin-top': '0', 'padding-top': (($('.navbar-fixed-top').height()) - 20 )+'px'});
+    $(window).resize(function(){
+        $('#page-wrapper') .css({'margin-top': '0', 'padding-top': (($('.navbar-fixed-top').height()) - 20 )+'px'});
+    });
+
+    showNumberOfContributions('Indonesian');
+    showNumberOfContributions('Chinese');
+    showNumberOfContributions('Vietnamese');
+
+    
     // handlers
     $(".language").click(function(e) {
-        showTable($(this).html());
+        showTable($(this).text().trim());
     });
 
     $("#logout-button").click(function() {
@@ -246,6 +250,24 @@ function showContributorTable() {
     });
 }
 
+
+function showNumberOfContributions(language) {
+
+    $.ajax({
+        type: "POST",
+        url: "php/admin-contributor.php",
+        data: {
+            action: "getNumberOfContributions",
+            language: language,
+        }, success: function(data) {
+            var a = JSON.parse(data);                        
+            $('.huge.'+language).html(a);
+
+        },  
+        async: false
+    });
+}
+
 function showTable(language) {
     var arr = [];
     var head = [];
@@ -290,7 +312,7 @@ function showTable(language) {
 
 function generateContributorTable(arr) {
     var content = "";
-    content += "<h2>Contributors</h2>";
+    content += "<h1 class='page-header'>Contributors</h1>";
     content += "<table class='table table-hover table-striped table-condensed table-bordered'><thead><tr>";
     content += "<th style='text-align: center'> Contributor ID </th>";
     content += "<th style='text-align: center'> Language </th>";    
@@ -312,7 +334,7 @@ function generateContributorTable(arr) {
 
 function generateTable(language, head, arr) {
     var content = "";
-    content += "<h2>"+language+"</h2>";
+    content += "<h1 class='page-header'>" + language + "</h1>";
     content += "<table class='table table-hover table-striped table-condensed table-bordered'><thead><tr>";
 
     for(var i = 0; i < head.length; i++) {
