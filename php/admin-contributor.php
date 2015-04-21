@@ -313,7 +313,7 @@
         $query = "insert into ".$tableName." values (".$id.", '".$content."', 'Pending')";
         if (!($db -> query($query))) {
             $text = "select * from " .$tableName. " where id=".$id;
-            $row = mysqli_fetch_row($db -> query($query));
+            $row = mysqli_fetch_row($db -> query($text));
             if($row[1] != $content){
                 $query = "update ".$tableName." set content='".$content."', status='Pending' where id=".$id;
                 $db -> query($query);
