@@ -28,7 +28,7 @@ setupDatabase();
 $first = $_POST["first_name"];
 $last = $_POST["last_name"];
 $email = $_POST["email"];
-$pass = $_POST["password"];
+$id = $_POST["id"];
 ///$pw = crypt($_POST["pw"], "CRYPT_MD5");
 $lang = $_POST["language"];
 
@@ -41,11 +41,11 @@ $last = $db->real_escape_string($input);
 $input  = cleanInput($email);
 $email = $db->real_escape_string($input);
 
-$input  = cleanInput($pass);
-$pass = $db->real_escape_string($input);
+$input  = cleanInput($id);
+$id = $db->real_escape_string($input);
 
-if($first != null && $last != null && $email != null && $pass != null && $lang != null){
-    $query = "insert into registration values ('".$first."', '".$last."', '".$email."', '".$lang."', '".$pass."')";
+if($first != null && $last != null && $email != null && $id != null && $lang != null){
+    $query = "insert into registration values ('".$first."', '".$last."', '".$email."', '".$lang."', '".$id."')";
 }
 if($db->query($query)){
 	echo "";

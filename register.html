@@ -63,12 +63,12 @@
 			    			<div class="row">
 			    				<div class="col-xs-12 col-sm-12 col-md-12">
 			    					<div class="form-group">
-			    						<input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+			    						<input type="text" name="username" id="username" class="form-control input-sm" placeholder="username">
 			    					</div>
 			    				</div>
 			    				<!-- <div class="col-xs-6 col-sm-6 col-md-6">
 			    					<div class="form-group">
-			    						<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
+			    						<input type="username" name="username_confirmation" id="username_confirmation" class="form-control input-sm" placeholder="Confirm username">
 			    					</div>
 			    				</div> -->
 			    			</div>
@@ -93,7 +93,7 @@
                     last_name: $("#last_name").val(),
                     email: $("#email").val(),
                     language: $("#language").val(),
-                    password: $("#password").val()
+                    id: $("#username").val()
                 },
                 success: function(data) {  
                     window.location = 'login.html';

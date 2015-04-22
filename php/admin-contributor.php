@@ -36,6 +36,8 @@
                 case "approveContribution": approveContribution(); break;
                 case "rejectContribution": rejectContribution(); break;
                 case "getRegistrations": getRegistrations(); break;
+                case "approveRegistration": approveRegistration(); break;
+                case "deleteRegistration": deleteRegistration(); break;
             }
         }
     }
@@ -406,8 +408,42 @@
         $result = array();
         $table = getTableFromDatabase("registration");
         while ($row = mysqli_fetch_row($table)) {
-            $result[] = array($row[0], $row[1], $row[2], $row[3]);
+            $result[] = array($row[0], $row[1], $row[2], $row[3], $row[4]);
         }
         echo json_encode($result);
+    }
+
+    function deleteRegistration() {
+        global $db;
+        setupDatabase(); 
+        $id = $_POST["id"];
+        if($id != null){
+            $query = "delete FROM registration WHERE username='" .$id. "'";
+            $db->query($query);
+        }
+    }
+
+    function approveRegistration() {
+        global $db;
+        setupDatabase(); 
+        $id = $_POST["id"];
+        $pw = crypt($_POST["pw"], "CRYPT_MD5");
+        if($id != null){
+            $query = "select * FROM registration WHERE username='" .$id. "'";
+            $result = $db->query($query);
+
+            $row = mysqli_fetch_row($result);
+
+
+            $query = "insert into contributor values ('".$id."', '".$pw."', '".$row[3]."')";
+            
+            if ($db->query($query)) {
+                $query = "create table ".$row[3]."_".$id." (id INT PRIMARY KEY, content VARCHAR(500), status VARCHAR(32))";
+                $db->query($query);
+
+                $query = "delete FROM registration WHERE username='" .$id. "'";
+                $db->query($query);
+            }
+        }
     }
 ?>

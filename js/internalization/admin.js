@@ -155,30 +155,16 @@ $(document).ready(function() {
 
         });
 
-        $("#registration-button").click(function() {
-            stopIntervals();        
+        
+    });
+
+    $("#registration-button").click(function() {
+        stopIntervals();        
+        showRegistrationTable();
+
+        refreshIntervalId.push(setInterval(function() {
             showRegistrationTable();
-
-            $(document).on('click', 'img.delete-contributor', function() {
-                var classList =$(this).attr('class').split(/\s+/);
-                var username = classList[1];
-                if (username != null) {
-                    $.ajax({
-                        type: "POST",
-                        url: "php/admin-contributor.php",
-                        data: {
-                            action: "deleteContributor",
-                            id: username,
-                        },
-                        success: function(data) {
-                            showContributorTable();
-                        },
-                        async: false
-                    });
-                }
-
-            });
-        });
+        }, 10000));
     });
 
 
@@ -231,6 +217,55 @@ $(document).ready(function() {
                                 },
                                 success: function(data) {
                                     showTable(classList[1]);
+                                },
+                                async: false
+                            });
+
+
+                        });
+
+    $(document).on('click', 'img.approve-registration', function() {
+        stopIntervals();        
+                            
+                            
+                            var classList =$(this).attr('class').split(/\s+/);
+                            var username = classList[1];
+                            var password = $('input#register#' + username).val();
+                            
+
+                            $.ajax({
+                                type: "POST",
+                                url: "php/admin-contributor.php",
+                                data: {
+                                    action: "approveRegistration",
+                                    id: username,
+                                    pw: password
+                                },
+                                success: function(data) {
+                                    showContributorTable();
+                                },
+                                async: false
+                            });
+
+
+                        });
+
+    $(document).on('click', 'img.delete-registration', function() {
+        stopIntervals();        
+                            
+                            
+                            var classList =$(this).attr('class').split(/\s+/);
+                            
+
+                            $.ajax({
+                                type: "POST",
+                                url: "php/admin-contributor.php",
+                                data: {
+                                    action: "deleteRegistration",
+                                    id: classList[1]
+                                },
+                                success: function(data) {
+                                    showRegistrationTable();
                                 },
                                 async: false
                             });
@@ -462,7 +497,10 @@ function generateRegistrationTable(arr) {
     content += "<th style='text-align: center'> Name </th>";
     content += "<th style='text-align: center'> Email </th>";
     content += "<th style='text-align: center'> Language </th>";    
-    content += "<th style='text-align: center'> Delete Contributor </th>";
+    content += "<th style='text-align: center'> Username </th>";
+    content += "<th style='text-align: center'> Authentication Token </th>";
+    content += "<th style='text-align: center'> Approve Registration </th>";
+    content += "<th style='text-align: center'> Delete Registration </th>";
     content += "</tr></thead><tbody>"; 
 
     for (var j = 0; j < arr.length; j++) {
@@ -470,7 +508,10 @@ function generateRegistrationTable(arr) {
         content += "<td style='text-align: center'>" + arr[j][0] +" "+ arr[j][1]+ "</td>";
         content += "<td style='text-align: center'>" + arr[j][2] + "</td>";
         content += "<td style='text-align: center'>" + arr[j][3] + "</td>";
-        content += "<td style='text-align: center'><img class='delete-contributor " + arr[j][0] + "' src='img/reject.png' width='20' height='20' align='middle'></td>";
+        content += "<td style='text-align: center'>" + arr[j][4] + "</td>";
+        content += "<td><input class='form-control' id='register " + arr[j][4] + "'></input></td>";
+        content += "<td style='text-align: center'><img class='approve-registration " + arr[j][4] + "' src='img/approve.png' width='20' height='20' align='middle'></td>";
+        content += "<td style='text-align: center'><img class='delete-registration " + arr[j][4] + "' src='img/reject.png' width='20' height='20' align='middle'></td>";
         content += "</tr>";
     }
     content += "</tbody></table>";
