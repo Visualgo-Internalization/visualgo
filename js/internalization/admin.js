@@ -154,6 +154,31 @@ $(document).ready(function() {
             }
 
         });
+
+        $("#registration-button").click(function() {
+            stopIntervals();        
+            showRegistrationTable();
+
+            $(document).on('click', 'img.delete-contributor', function() {
+                var classList =$(this).attr('class').split(/\s+/);
+                var username = classList[1];
+                if (username != null) {
+                    $.ajax({
+                        type: "POST",
+                        url: "php/admin-contributor.php",
+                        data: {
+                            action: "deleteContributor",
+                            id: username,
+                        },
+                        success: function(data) {
+                            showContributorTable();
+                        },
+                        async: false
+                    });
+                }
+
+            });
+        });
     });
 
 
@@ -274,6 +299,20 @@ function showContributorTable() {
         }, success: function(data) {
             var arr = JSON.parse(data);
             generateContributorTable(arr);
+        },  
+        async: false
+    });
+}
+
+function showRegistrationTable() {
+    $.ajax({
+        type: "POST",
+        url: "php/admin-contributor.php",
+        data: {
+            action: "getRegistrations"
+        }, success: function(data) {
+            var arr = JSON.parse(data);
+            generateRegistrationTable(arr);
         },  
         async: false
     });
@@ -414,4 +453,28 @@ function generateTable(language, head, arr) {
 
     $("#table-area").html(content);
     $("#page-wrapper").html(content);
+}
+
+function generateRegistrationTable(arr) {
+    var content = "";
+    content += "<h1 class='page-header'>Registrations</h1>";
+    content += "<table class='table table-hover table-striped table-condensed table-bordered'><thead><tr>";
+    content += "<th style='text-align: center'> Name </th>";
+    content += "<th style='text-align: center'> Email </th>";
+    content += "<th style='text-align: center'> Language </th>";    
+    content += "<th style='text-align: center'> Delete Contributor </th>";
+    content += "</tr></thead><tbody>"; 
+
+    for (var j = 0; j < arr.length; j++) {
+        content += "<tr>";
+        content += "<td style='text-align: center'>" + arr[j][0] +" "+ arr[j][1]+ "</td>";
+        content += "<td style='text-align: center'>" + arr[j][2] + "</td>";
+        content += "<td style='text-align: center'>" + arr[j][3] + "</td>";
+        content += "<td style='text-align: center'><img class='delete-contributor " + arr[j][0] + "' src='img/reject.png' width='20' height='20' align='middle'></td>";
+        content += "</tr>";
+    }
+    content += "</tbody></table>";
+
+    $("#table-area").html(content);
+    $("#page-wrapper").html(content);    
 }

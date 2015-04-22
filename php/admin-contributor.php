@@ -35,7 +35,7 @@
                 case "deleteContributor" : deleteContributor(); break;
                 case "approveContribution": approveContribution(); break;
                 case "rejectContribution": rejectContribution(); break;
-                
+                case "getRegistrations": getRegistrations(); break;
             }
         }
     }
@@ -396,5 +396,18 @@
 
 
         // }
+    }
+
+    function getRegistrations() {
+        if (!$_SESSION["isAdmin"]) {
+            return;
+        }
+
+        $result = array();
+        $table = getTableFromDatabase("registration");
+        while ($row = mysqli_fetch_row($table)) {
+            $result[] = array($row[0], $row[1], $row[2], $row[3]);
+        }
+        echo json_encode($result);
     }
 ?>
