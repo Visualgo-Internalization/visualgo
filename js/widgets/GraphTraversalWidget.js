@@ -1596,6 +1596,7 @@ var GraphTraversal = function(){
               currentState = createState(internalAdjList, internalEdgeList, vertexHighlighted, edgeHighlighted, vertexTraversed, edgeTraversed, vertexTraversing,
                               treeEdge, backEdge, crossEdge, forwardEdge, hiddenEdge);
               currentState["status"] = "Queue = ["+q+"]<br>"+vertexB+" "
+                                        + getTranslatedHtml(336, "still has incoming edge, ignore.");
               currentState["lineNo"] = 6;
               stateList.push(currentState);
           }
