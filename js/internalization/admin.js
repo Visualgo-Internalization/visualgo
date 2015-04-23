@@ -162,9 +162,9 @@ $(document).ready(function() {
         stopIntervals();        
         showRegistrationTable();
 
-        refreshIntervalId.push(setInterval(function() {
-            showRegistrationTable();
-        }, 10000));
+        // refreshIntervalId.push(setInterval(function() {
+        //     showRegistrationTable();
+        // }, 10000));
     });
 
 
@@ -230,7 +230,7 @@ $(document).ready(function() {
                             
                             var classList =$(this).attr('class').split(/\s+/);
                             var username = classList[1];
-                            var password = $('input#register#' + username).val();
+                            var password = $("#" + username).val();
                             
 
                             $.ajax({
@@ -512,7 +512,7 @@ function generateRegistrationTable(arr) {
         content += "<td style='text-align: center'>" + arr[j][2] + "</td>";
         content += "<td style='text-align: center'>" + arr[j][3] + "</td>";
         content += "<td style='text-align: center'>" + arr[j][4] + "</td>";
-        content += "<td><input class='form-control' id='register " + arr[j][4] + "'></input></td>";
+        content += "<td><input class='form-control' id='" + arr[j][4] + "'></input></td>";
         content += "<td style='text-align: center'><img class='approve-registration " + arr[j][4] + "' src='img/approve.png' width='20' height='20' align='middle'></td>";
         content += "<td style='text-align: center'><img class='delete-registration " + arr[j][4] + "' src='img/reject.png' width='20' height='20' align='middle'></td>";
         content += "</tr>";
