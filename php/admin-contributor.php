@@ -126,7 +126,7 @@
     function checkUser($tableName, $id, $pw) {
         global $db;
         setupDatabase();
-        $query = "select * from ".$tableName." where username = '".$id."'";
+        $query = "select * from ".$tableName." where binary username = '".$id."'";
         $res = $db->query($query);
         if ($res = $db->query($query)) {
             $row = mysqli_fetch_row($res);
