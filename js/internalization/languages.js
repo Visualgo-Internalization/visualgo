@@ -210,10 +210,13 @@ function languagePreferences() {
 }
 
 function showLanguageOptions() {
-    var languagePreferences = JSON.parse(localStorage["languagePreferences"]);
+    var languagePreferences = "";
     var content = "";
-    if(languagePreferences.length == 0) {
+    if(localStorage["languagePreferences"] == undefined) {
         languagePreferences = ["English", "Chinese", "Indonesian", "Vietnamese"];
+    }
+    else {
+        languagePreferences = JSON.parse(localStorage["languagePreferences"]);
     }
     for(var x = 0; x < languagePreferences.length; x++) {
         content += "<div id='" + languagePreferences[x] + "' class='languages'>";
