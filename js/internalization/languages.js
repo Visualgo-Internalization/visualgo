@@ -41,33 +41,49 @@ $(document).ready(function() {
     $('#language-options').html(showLanguageOptions());
 
     $(document).on('click', '#trigger-language', function() {
-    $('#dark-overlay').fadeIn(function() {
-        $('#language-preferences').fadeIn();
+        $('#dark-overlay').fadeIn(function() {
+            $('#language-preferences').fadeIn();
+        });
     });
-});
 
-$(document).on('click', '#preference-save', function() {
-    var languages = ["English", "Chinese", "Indonesian", "Vietnamese"];
-    var showLanguages = [];
-    var defaultLanguage = $("input:radio[name=defaultLanguage]:checked").val();
-    for(var x = 0; x < languages.length; x++) {
-        if($("#" + languages[x] + '-bar').prop('checked')) {
-            showLanguages.push(languages[x]);
-        }
-    }
-    localStorage.setItem("defaultLanguage", defaultLanguage);
+    $('.close-overlay').click(function() {
+        $('.overlays').fadeOut(function() {
+            $('#dark-overlay').fadeOut();
+        });
+    });
 
-    changeLanguage(defaultLanguage);
-
-    localStorage["languagePreferences"] = JSON.stringify(showLanguages);
-
-    $('.overlays').fadeOut(function() {
+    $('#dark-overlay').click(function() {
+        $('.overlays').fadeOut();
         $('#dark-overlay').fadeOut();
     });
 
-    $('#language-options').html(showLanguageOptions());
+    $(document).on('click', '#preference-save', function() {
+        var languages = ["English", "Chinese", "Indonesian", "Vietnamese"];
+        var showLanguages = [];
+        var defaultLanguage = $("input:radio[name=defaultLanguage]:checked").val();
+        for(var x = 0; x < languages.length; x++) {
+            if($("#" + languages[x] + '-bar').prop('checked')) {
+                showLanguages.push(languages[x]);
+            }
+        }
+        localStorage.setItem("defaultLanguage", defaultLanguage);
+
+        changeLanguage(defaultLanguage);
+
+        localStorage["languagePreferences"] = JSON.stringify(showLanguages);
+
+        $('.overlays').fadeOut(function() {
+            $('#dark-overlay').fadeOut();
+        });
+
+        $('#language-options').html(showLanguageOptions());
+    });
+
+    $('h4').css("background-color", "#a7d41e");
 });
-})
+
+
+
 
 function getLanguage() {
     var currentLanguage;
