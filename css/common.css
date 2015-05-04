@@ -208,6 +208,13 @@ body { background: #eeeeee; font-family: "PT Sans"; font-size: 13px; }
     margin-left: -200px;
     margin-top: -90px;
 }
+#language-preferences {
+    height: 350px;
+    width: 400px;
+    margin-left: -200px;
+    margin-top: -90px;    
+}
+
 .overlays .close-overlay {
     position: absolute;
     top: 20px;
