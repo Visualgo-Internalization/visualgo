@@ -116,6 +116,38 @@ function getQueryVariable(variable) {
     return "";
 }
 
+// function languagePreferences() {
+//     var content = "<h4>Language Settings</h4><img class='close-overlay' src='img/cross_white.png' /><div class='content'>";
+//     content += "<p>Select the languages you want to see in the languages bar</p>";
+//     content += "<input type='checkbox' name='language' id='English-bar' value='English'>English<br>";
+//     content += "<input type='checkbox' name='language' id='Chinese-bar' value='Chinese'>Chinese<br>";
+//     content += "<input type='checkbox' name='language' id='Indonesian-bar' value='Indonesian'>Indonesian<br>";
+//     content += "<input type='checkbox' name='language' id='Vietnamese-bar' value='Vietnamese'>Vietnamese<br>";
+//     content += "<p>Select the default language</p>";
+//     content += "<input type='radio' name='defaultLanguage' id='English-default' value='English'>English<br>";
+//     content += "<input type='radio' name='defaultLanguage' id='Chinese-default' value='Chinese'>Chinese<br>";
+//     content += "<input type='radio' name='defaultLanguage' id='Indonesian-default' value='Indonesian'>Indonesian<br>";
+//     content += "<input type='radio' name='defaultLanguage' id='Vietnamese-default' value='Vietnamese'>Vietnamese<br>";
+//     content += "<input type='submit' id='preference-save' value='Save'>";
+//     content += "</div>";
+//     return content;
+// }
+
+// function showLanguageOptions() {
+//     var languagePreferences = JSON.parse(localStorage["languagePreferences"]);
+//     var content = "";
+//     if(languagePreferences.length == 0) {
+//         languagePreferences = ["English", "Chinese", "Indonesian", "Vietnamese"];
+//     }
+//     for(var x = 0; x < languagePreferences.length; x++) {
+//         content += "<div id='" + languagePreferences[x] + "' class='languages'>";
+//         content += "<p>" + languagePreferences[x] + "</p>";
+//         content += "</div>";
+//     }
+//     content += "<div id='trigger-language' class='languages'><p>Settings</p></div>";
+//     return content;
+// }
+
 var generatedColours = getColours();
 var surpriseColour = colourArray[generatedColours[0]];
 var colourTheSecond = colourArray[generatedColours[1]];
@@ -189,6 +221,10 @@ $(document).ready(function() {
 
     $('#termsofuse').html('<h4>Terms of use</h4><img class="close-overlay" src="img/cross_white.png" /><div class="content"><p>If you are a data structure and algorithm teacher, you are allowed to use this website for your classes. You can take screen shots from this website and use the screen shots elsewhere as long as you cite this website as a reference.</p><!--I think we need a better copyright/terms of use statement--></div>');
 
+    // $('#language-preferences').html(languagePreferences());
+
+    // $('#language-options').html(showLanguageOptions());
+
     $('.colour').css("color", surpriseColour); //name
     $('h4').css("background-color", surpriseColour); //about, contact us etc. button background
 
@@ -225,4 +261,29 @@ $(document).ready(function() {
         $('.overlays').fadeOut();
         $('#dark-overlay').fadeOut();
     });
+
+    // $(document).on('click', '#trigger-language', function() {
+    //     $('#dark-overlay').fadeIn(function() {
+    //         $('#language-preferences').fadeIn();
+    //     });
+    // });
+
+    // $(document).on('click', '#preference-save', function() {
+    //     var languages = ["English", "Chinese", "Indonesian", "Vietnamese"];
+    //     var showLanguages = [];
+    //     var defaultLanguage = $("input:radio[name=defaultLanguage]:checked").val();
+    //     for(var x = 0; x < languages.length; x++) {
+    //         if($("#" + languages[x] + '-bar').prop('checked')) {
+    //             showLanguages.push(languages[x]);
+    //         }
+    //     }
+    //     localStorage.setItem("defaultLanguage", defaultLanguage);
+    //     localStorage["languagePreferences"] = JSON.stringify(showLanguages);
+
+    //     $('.overlays').fadeOut(function() {
+    //         $('#dark-overlay').fadeOut();
+    //     });
+
+    //     $('#language-options').html(showLanguageOptions());
+    // });
 });
