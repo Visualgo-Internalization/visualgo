@@ -29,6 +29,7 @@ $(document).ready(function() {
 
     
     // handlers
+    var index;
     $(".language").click(function(e) {
 
         var language = $(this).text().trim();
@@ -39,11 +40,11 @@ $(document).ready(function() {
             var id1 = classList[1];
             var id2 = classList[2];
             var id = id1 + " " + id2;
-            var index = sections.indexOf(id);
+            index = sections.indexOf(id);
             showTable(language, index);
 
             refreshIntervalId.push(setInterval(function() {
-                showTable(language);
+                showTable(language, index);
             }, 2500));
         });
 
@@ -192,7 +193,7 @@ $(document).ready(function() {
 
                                 },
                                 success: function(data) {
-                                    showTable(classList[1]);
+                                    showTable(classList[1], index);
                                 },
                                 async: false
                             });
@@ -220,7 +221,7 @@ $(document).ready(function() {
 
                                 },
                                 success: function(data) {
-                                    showTable(classList[1]);
+                                    showTable(classList[1], index);
                                 },
                                 async: false
                             });
