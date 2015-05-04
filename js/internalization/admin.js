@@ -30,18 +30,22 @@ $(document).ready(function() {
     
     // handlers
     $(".language").click(function(e) {
-        stopIntervals();
 
         var language = $(this).text().trim();
+        $(".section").click(function() {
+            stopIntervals();
+            
+            var classList = $(this).attr('class').split(/\s+/);
+            var id1 = classList[1];
+            var id2 = classList[2];
+            var id = id1 + " " + id2;
+            var index = sections.indexOf(id);
+            showTable(language, index);
 
-        showTable(language);
-
-        
-
-        refreshIntervalId.push(setInterval(function() {
-            showTable(language);
-        }, 2500));
-
+            refreshIntervalId.push(setInterval(function() {
+                showTable(language);
+            }, 2500));
+        });
 
     });
 
@@ -371,7 +375,10 @@ function showNumberOfContributions(language) {
     });
 }
 
-function showTable(language) {
+var sections = ["Graph Traversal", "Cycle Finding"];
+var ranges = [[100, 399],[1100,1400]];
+
+function showTable(language, index) {
     var arr = [];
     var head = [];
     var currentCol = 1;
@@ -407,7 +414,7 @@ function showTable(language) {
                 // head.push("Approve");
                 // head.push("Reject");
 
-                generateTable(language, head, arr);
+                generateTable(language, head, arr, index);
 
             },  
             async: false
@@ -436,7 +443,7 @@ function generateContributorTable(arr) {
     $("#page-wrapper").html(content);    
 }
 
-function generateTable(language, head, arr) {
+function generateTable(language, head, arr, index) {
     var content = "";
     content += "<h1 class='page-header'>" + language + "</h1>";
     content += "<table class='table table-hover table-striped table-condensed table-bordered'><thead><tr>";
@@ -449,7 +456,7 @@ function generateTable(language, head, arr) {
         }
     }
     content += "</tr></thead><tbody>"; 
-    for (var j = 0; j < 10000; j++) {
+    for (var j = ranges[index][0]; j < ranges[index][1]; j++) {
         if (typeof arr[1][j] !== 'undefined') {
 
             var flag = true;
